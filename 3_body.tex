@@ -1,0 +1,1304 @@
+% ----------------------------------------------------------------
+% AMS-LaTeX Paper ************************************************
+% **** -----------------------------------------------------------
+\documentclass{revtex4}
+\usepackage{graphicx,latexsym,amsfonts,amsmath,amssymb,xtheorem}
+% ----------------------------------------------------------------
+\vfuzz2pt % Don't report over-full v-boxes if over-edge is small
+\hfuzz2pt % Don't report over-full h-boxes if over-edge is small
+
+% MATH -----------------------------------------------------------
+\newcommand{\norm}[1]{\left\Vert#1\right\Vert}
+\newcommand{\abs}[1]{\left\vert#1\right\vert}
+\newcommand{\set}[1]{\left\{#1\right\}}
+\newcommand{\Real}{\mathbb R}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\To}{\longrightarrow}
+\newcommand{\BX}{\mathbf{B}(X)}
+\newcommand{\A}{\mathcal{A}}
+% ----------------------------------------------------------------
+\begin{document}
+\tableofcontents
+\section{G\'en\'eralit\'es}
+
+\subsection{Notion de Flot}
+On rappelle que le flot d'un syst\`eme d'\'equations
+différentielles de la forme
+
+\begin{equation}
+\dot{Q}(t)=F(Q(t))
+\end{equation}
+
+o\`u $Q,F\in\Real^d$ i.e.
+
+\begin{equation}
+Q(t)\equiv
+\left(\begin{array}{c} q_1(t)\\
+q_2(t)\\
+\vdots\\
+q_d(t)\end{array}\right)
+ F(Q)\equiv
+\left(\begin{array}{c} F_1(Q)\\
+F_2(Q)\\
+\vdots\\
+F_d(Q)\end{array}\right)
+\end{equation}
+
+est une application not\'ee $\varphi(t,Q(0))$ qui \`a chaque
+instant t associe un point de l'espace des phases $\Omega$ \`a un
+autre point de cet espace:
+
+\begin{eqnarray*}
+\Omega\,&\rightarrow&\,\Omega\\
+Q(0)\,&\mapsto&\,Q(t)=\varphi(t,Q(0))
+\end{eqnarray*}
+
+Plus g\'en\'eralement, on a pour tout $\tau$:
+
+\begin{equation}\label{eq7}
+Q(t+\tau)=\varphi(t+\tau,Q(0))=\varphi(\tau,Q(t))=\varphi(\tau,\varphi(t,Q(0)))
+\end{equation}
+
+soit
+\begin{equation}\boxed{
+\varphi(t+\tau,Q(0))=\varphi(\tau,\varphi(t,Q(0)))
+\,\,\,\forall(t,\tau)\in\Real^2}
+\end{equation}
+
+\subsection{Matrice jacobienne du Flot}
+
+\subsubsection{D\'efinition}
+La matrice Jacobienne associ\'ee \`a un Flot $\varphi(t,Q(0))$ est
+d\'efinie par
+
+\begin{equation}
+\mathcal{J}(t)=\frac{\partial Q(t)}{\partial Q(0)}=\frac{\partial
+\varphi(t,Q(0))}{\partial Q(0)}
+\end{equation}
+
+ soit en termes de composantes
+
+\begin{equation}
+\mathcal{J}_{ij}(t)=\frac{\partial q_i(t)}{\partial q_j(0)}
+\end{equation}
+
+on note d'apr\`es cette d\'efinition
+
+\begin{equation}\left\{\begin{array}{c}
+\mathcal{J}(0)=\frac{\partial Q(0)}{\partial Q(0)}=\openone\\
+\mathcal{J}_{ij}(0)=\delta_{ij}\end{array}\right.
+\end{equation}
+\subsubsection{\'equation d'\'evolution}
+
+L'\'equation d'\'evolution se d\'eduit de la d\'efinition m\^eme:
+
+\begin{eqnarray*}
+\frac{d\mathcal{J}(t)}{dt}&=&\frac{d\frac{\partial Q(t)}{\partial
+Q(0)}}{dt}\\
+&=&\frac{\partial \frac{dQ(t)}{dt}}{\partial Q(0)}
+=\frac{\partial F(Q(t))}{\partial Q(0)}\\
+&=&\frac{\partial F(Q(t))}{\partial Q(t)}\frac{\partial
+Q(t)}{\partial Q(0)}=\frac{\partial F(Q(t))}{\partial
+Q(t)}\,\mathcal{J}(t)
+\end{eqnarray*}
+
+On en d\'eduit le syst\`eme d'\'equations qui r\'egit
+l'\'evolution de la matrice jacobienne
+
+\begin{equation}
+\left\{\begin{array}{ccc}
+\frac{d\mathcal{J}(t)}{dt}&=&\frac{\partial
+F(Q(t))}{\partial Q(t)}\,\mathcal{J}(t)\\
+\mathcal{J}(0)&=&\openone\end{array}\right.
+\end{equation}
+
+en termes de composantes:
+
+\begin{equation}
+\left\{\begin{array}{ccc}
+\frac{d\mathcal{J}_{ij}(t)}{dt}&=&\frac{\partial
+F_i(Q(t))}{\partial q_k(t)}\,\mathcal{J}_{kj}(t)\\
+\mathcal{J}_{ij}(0)&=&\delta_{ij}\end{array}\right.
+\end{equation}
+
+\subsection{Equations variationelles du premier ordre associ\'ees au
+Flot}
+
+Les \'equation variationnelles du premier ordre associ\'ees au
+flot se d\'eduisent en rempla\c cant Q par son expression en
+fonction du Flot:
+
+\begin{equation}
+\left\{\begin{array}{ccc} \frac{d}{dt}\left(\frac{\partial
+\varphi(t,Q(0))}{\partial Q(0)}\right)&=&\frac{\partial
+F(Q(t))}{\partial Q(t)}\,\frac{\partial
+\varphi(t,Q(0))}{\partial Q(0)}\\
+\frac{\partial \varphi(0,Q(0))}{\partial
+Q(0)}&=&\openone\end{array}\right.
+\end{equation}
+
+Ces \'equations permettent de calculer \`a chaque instant la
+quantit\'e $\frac{\partial \varphi(t,Q(0))}{\partial Q(0)}$ qui
+repr\'esente la d\'eriv\'ee du Flot par rapport aux conditions
+initiales.
+
+\section{Probl\`eme \`a trois corps  planaire p\'eriodique}
+\subsection{G\'en\'eralit\'es}
+On consid\`ere le probl\`eme \`a N corps planaire de p\'eriode T
+g\'en\'eral
+
+\begin{equation}\left\{\begin{array}{c}
+\ddot x_i(t)=\sum_{j\neq
+i}^{N}\frac{x_j(t)-x_i(t)}{\left[(x_j(t)-x_i(t))^2+(y_j(t)-y_i(t))^2\right]^{\frac{3}{2}}}\\
+\ddot y_i(t)=\sum_{j\neq
+i}^{N}\frac{y_j(t)-y_i(t)}{\left[(x_j(t)-x_i(t))^2+(y_j(t)-y_i(t))^2\right]^{\frac{3}{2}}}
+\end{array}\right.
+\end{equation}
+
+On note pour la suite que ce syst\`eme diff\'erentiel du second
+ordre peut \^etre reformul\'e en un syst\`eme diff\'erentiel du
+premier ordre:
+
+\begin{equation}\left\{\begin{array}{ccc}
+\dot x_i(t)&=&v_i(t)\\
+\\
+\dot v_i(t)&=&\sum_{j\neq
+i}^{N}\frac{x_j(t)-x_i(t)}{\left[(x_j(t)-x_i(t))^2+(y_j(t)-y_i(t))^2\right]^{\frac{3}{2}}}\\
+\\
+\dot y_i(t)&=&w_i(t)\\
+\\
+\dot w_i(t)&=& \sum_{j\neq
+i}^{N}\frac{y_j(t)-y_i(t)}{\left[(x_j(t)-x_i(t))^2+(y_j(t)-y_i(t))^2\right]^{\frac{3}{2}}}
+\end{array}\right.
+\end{equation}
+
+Posons
+
+\begin{equation}
+Q(t)=\left(\begin{array}{c} X_1(t)\\
+\vdots\\
+X_N(t)\end{array}\right)\,\,\,\,\,\,\,\,
+F\left(Q(t)\right)=\left(\begin{array}{c} f_1\left(\;^tQ(t)\right)\\
+\vdots\\
+f_N\left(\;^tQ(t)\right)\end{array}\right)
+\end{equation}
+
+avec
+
+\begin{equation}
+ X_i(t)=\left(\begin{array}{c}
+ x_i(t)\\
+ v_i(t)\\
+ y_i(t)\\
+ w_i(t)\end{array}\right)\,\,\,\,\,\,\,\,\,\,\,
+ f_i\left(\;^tQ(t)\right)=\left(\begin{array}{c}
+ v_i(t)\\
+ \\
+\sum_{j\neq
+i}^{N}\frac{x_j(t)-x_i(t)}{\left[(x_j(t)-x_i(t))^2+(y_j(t)-y_i(t))^2\right]^{\frac{3}{2}}}\\
+\\
+ w_i(t)\\
+ \\
+ \sum_{j\neq
+i}^{N}\frac{y_j(t)-y_i(t)}{\left[(x_j(t)-x_i(t))^2+(y_j(t)-y_i(t))^2\right]^{\frac{3}{2}}}\end{array}\right)
+ \end{equation}
+
+ on obtient le syst\`eme du second ordre sous la forme:
+
+\begin{equation}\label{eq4}
+ \dot{Q}(t)=F\left(\;^tQ(t)\right)
+ \end{equation}
+
+\underline{\textbf{Remarque}}
+
+ \textbf{Nous nous restreignons dans la suite
+au probl\`eme o\`u le centre de masse du syst\`eme est immobile
+\`a l'origine, ce qui se traduit par les 4 \'equations}
+
+\begin{equation}
+\sum_{i=1}^{N}X_i(t)=0
+\end{equation}
+
+
+ \textbf{L'espace des phases est de dimension 4N-4}. On choisit d'exprimer $X_1(t)$ en
+fonction des $\left\{X_i(t)\right\}_{i=2\ldots N}$.
+
+\begin{equation}
+X_1(t)=-\sum_{i=2}^{N}X_i(t)
+\end{equation}
+
+Dans la suite, on posera donc
+
+
+\begin{equation}
+Q(t)=\left(\begin{array}{c} X_2(t)\\
+\vdots\\
+X_N(t)\end{array}\right)\,\,\,\,\,\,\,\,
+F\left(Q(t)\right)=\left(\begin{array}{c} f_2\left(\;^tQ(t)\right)\\
+\vdots\\
+f_N\left(\;^tQ(t)\right)\end{array}\right)
+\end{equation}
+
+Le Flot associ\'e \`a ce syst\`eme diff\'erentiel sera not\'e
+$\Phi\left(t,Q(0)\right)$, il v\'erifie
+
+\begin{equation}
+Q(t)=\Phi\left(t,Q(0)\right)
+\end{equation}
+
+ repr\'esent\'e par un
+vecteur colonne \`a 4N-4 entr\'ees. Explicitement
+
+\begin{equation}
+\left\{\begin{array}{c} x_2(t)=\Phi_1(t,Q(0))\\
+v_2(t)=\Phi_2(t,Q(0))\\
+y_2(t)=\Phi_3(t,Q(0))\\
+w_2(t)=\Phi_4(t,Q(0))\\
+x_3(t)=\Phi_5(t,Q(0))\\
+v_3(t)=\Phi_6(t,Q(0))\\
+y_3(t)=\Phi_7(t,Q(0))\\
+w_3(t)=\Phi_8(t,Q(0))\\
+\vdots\\
+x_N(t)=\Phi_{4N-7}(t,Q(0))\\
+v_N(t)=\Phi_{4N-6}(t,Q(0))\\
+y_N(t)=\Phi_{4N-5}(t,Q(0))\\
+w_N(t)=\Phi_{4N-4}(t,Q(0))\\
+\end{array}\right.
+\end{equation}
+
+\subsection{Formulation variationnelle}
+
+ Ces \'equations peuvent \^etre d\'eriv\'ees du
+Lagrangien
+\begin{equation}
+\mathcal{L}=\int_0^T\,dt\,\left(K(t)+U(t)\right)
+\end{equation}
+
+o\`u
+
+\begin{equation}\left\{\begin{array}{ccc}
+K(t)&=&\frac{1}{2}\,\sum_{i=1}^{N}\sqrt{\dot{x}_i(t)^2+\dot{y}_i(t)^2}\\
+&&\\
+U(t)&=&\sum_{i=1}^{N}\sum_{j>i}^{N}\,\frac{1}{\sqrt{\left[(x_j(t)-x_i(t))^2+(y_j(t)-y_i(t))^2\right]}}
+\end{array}\right.
+\end{equation}
+\subsection{Minimisation du Lagrangien}
+
+\subsubsection{Repr\'esentation de Fourier des trajectoires}
+
+Puisque l'on cherche des trajectoires p\'eriodiques du probl\`eme,
+il nous est loisible de repr\'esenter les trajectoires des
+particules en termes de s\'eries de Fourier. On d\'efinit:
+\begin{equation}
+x_f(t)=\sum_{i=1}^{N_f}a_i\cos\left(\frac{2\pi}{T}\,i\,t\right)+\sum_{i=1}^{N_f}b_i\sin\left(\frac{2\pi}{T}\,i\,t\right)
+\end{equation}
+
+et de m\^eme
+
+\begin{equation}
+y_f(t)=\sum_{i=1}^{N_f}c_i\cos\left(\frac{2\pi}{T}\,i\,t\right)+\sum_{i=1}^{N_f}d_i\sin\left(\frac{2\pi}{T}\,i\,t\right)
+\end{equation}
+
+On d\'efinit \`a partir de ces fonctions, les coordonn\'ees des N
+particules en consid\'erant les translat\'ees temporelles des
+fonctions pr\'ec\'edemment introduites:
+
+\begin{equation}\label{eq2}
+\left\{\begin{array}{c}
+x_i(t)=x_f(t+\frac{i-1}{N}\,T)\\
+y_i(t)=y_f(t+\frac{i-1}{N}\,T)\end{array}\right.
+\end{equation}
+
+Sous cette forme, la trajectoire de chaque corps est bien
+T-p\'eriodique et on a les relations triviales suivantes pour
+$x_i(t)$ (idem pour $y_i(t)$):
+
+\begin{eqnarray*}
+x_i(t)&=&x_f(t+\frac{i-1}{N}\,T)=x_f(t-\frac{T}{N}+\frac{i}{N}\,T)\\
+&=&x_{i+1}\left(t-\frac{T}{N}\right)
+\end{eqnarray*}
+
+Ces relations sont valables pour $i=1,\ldots,N-1$. Il faut
+adjoindre la condition
+
+\begin{equation}
+x_N\left(t+\frac{T}{N}\right)=x_f(t+\frac{T}{N}+\frac{N-1}{N}\,T)=x_f(t)=x_1(t)
+\end{equation}
+
+soit finalement
+
+\begin{equation}\label{eq1}
+\left\{\begin{array}{c}
+x_i\left(t+\frac{T}{N}\right)=x_{i+1}(t)\,\,\,\,\,i=1,\ldots,N-1\\
+\\
+y_i\left(t+\frac{T}{N}\right)=y_{i+1}(t)\,\,\,\,\,i=1,\ldots,N-1\\
+\\
+x_N\left(t+\frac{T}{N}\right)=x_1(t)\\
+\\
+y_N\left(t+\frac{T}{N}\right)=y_1(t)
+\end{array}\right.
+\end{equation}
+
+Ces \'equations sont aussi valables pour les d\'eriv\'ees. Dans le
+formalisme introduit plus haut, on obtient les \'equations
+\begin{equation}
+X_{i}\left(t+\frac{T}{N}\right)=X_{i+1}(t)
+\end{equation}
+et
+
+\begin{equation}
+X_{N}\left(t+\frac{T}{N}\right)=X_{1}(t)=-\sum_{i=2}^{N} X_i(t)
+\end{equation}
+
+Soit encore
+
+\begin{equation}
+Q(t+\frac{T}{N})=\sigma.Q(t)
+\end{equation}
+
+Introduisons la matrice $\mathcal{M}^{(N-1)}$ d'ordre $N-1\times
+N-1$  dans l'espace des $\left\{X_i(t)\right\}_{i=2,N}$
+d'\'el\'ements
+
+\begin{equation}\left\{\begin{array}{c}
+\left(\mathcal{M}^{(N-1)}\right)_{ij}=\delta_{i+1,j}\,\,\,i=1\ldots N-2,\,j=1\ldots N-1\\
+\left(\mathcal{M}^{(N-1)}\right)_{N-1\,\,j}=-1\,\,\,j=1\ldots N-1\\
+\end{array}\right.
+\end{equation}
+
+
+$\sigma$ est une application lin\'eaire qui peut \^etre
+repr\'esent\'ee au moyen de la matrice $\mathcal{M}^{(N-1)}$:
+
+\begin{equation}
+\left(\sigma\right)_{ij}=\left(\mathcal{M}^{(N-1)}\right)_{ij}
+\end{equation}
+
+Dans l'espace des phases, la matrice $\sigma$ a pour expression:
+
+\begin{equation}\left\{\begin{array}{c}
+\left(\sigma\right)_{ij}=\openone_4\,\delta_{i+1,j}\,\,\,i=1\ldots N-2,\,j=1\ldots N-1\\
+\left(\sigma\right)_{N-1\,\, j}=-\openone_4\,\,\,j=1\ldots N-1\\
+\end{array}\right.
+\end{equation}
+
+i.e. dans l'espace des phases, on peut r\'e\'ecrire l'application
+lin\'eaire $\sigma$ sous la forme plus compacte d'un produit
+tensoriel d'applications:
+
+\begin{equation}
+\sigma=\mathcal{M}^{(N-1)}\otimes\openone_4
+\end{equation}
+
+Dans le cas \`a N=3 corps, on a explicitement
+
+\begin{eqnarray*}
+\left(\begin{array}{c}X_2(t+\frac{T}{N})\\X_3(t+\frac{T}{N})\end{array}\right)&=&
+\left(\begin{array}{cc}
+0_4 & \openone_4\\
+-\openone_4 &
+-\openone_4\end{array}\right)\left(\begin{array}{c}X_2(t)\\X_3(t)\end{array}\right)\\
+&=&\left(\begin{array}{cc}
+0 & 1\\
+-1 &
+-1\end{array}\right)\otimes\openone_4\,\left(\begin{array}{c}X_2(t)\\X_3(t)\end{array}\right)
+\end{eqnarray*}
+
+
+Maintenant,
+\begin{equation}
+Q\left(t+\frac{T}{N}\right)=\Phi\left(\frac{T}{N},Q(t)\right)
+\end{equation}
+
+et d'apr\`es la d\'efinition m\^eme du Flot:
+
+\begin{equation}
+Q(t)=\Phi\left(t,Q(0)\right)
+\end{equation}
+
+on aboutit donc aux \'equations \'equivalentes dans ce formalisme:
+
+\begin{equation}
+\boxed{\Phi\left(\frac{T}{N},Q(t)\right)=\sigma.\Phi\left(t,Q(0)\right)}
+\end{equation}
+
+ce qui donne en termes de composantes, dans l'espace des phases:
+
+\begin{equation}\label{eq3}
+\boxed{\Phi_k\left(\frac{T}{N},Q(t)\right)=\sigma_{kk'}\Phi_{k'}\left(t,Q(0)\right)\,\,\,k,k'=1,\ldots,4N-4}
+\end{equation}
+
+
+\subsubsection{Reformulation du principe variationnel en termes
+des c\oe fficients de Fourier}
+
+Tout d'abord, puisque chaque aussi bien l'\'energie cin\'etique
+totale que l'\'energie potentielle sont des fonctions
+sym\'etriques par permutation des coordonn\'ees des N corps et
+d'apr\`es les conditions (\ref{eq1}), il suffit de consid\'erer
+l'intervalle temporel $\,[0,\frac{T}{N}]\,$:
+\begin{equation}
+\mathcal{L}=\int_0^{\frac{T}{N}}\,dt\,\left(K(t)+U(t)\right)
+\end{equation}
+
+Injectant les expressions (\ref{eq2}), le lagrangien s'\'ecrit
+comme une fonctionnelle des c\oe fficients
+$\mathcal{C}=\left\{a_1,\ldots,a_{N_a},b_1,\ldots,b_{N_b},c_1,\ldots,c_{N_c},d_1,\ldots,d_{N_d}\right\}$:
+
+\begin{equation}
+\mathcal{L}\equiv\mathcal{L}(\mathcal{C})
+\end{equation}
+
+\subsubsection{M\'ethode non-lin\'eaire du gradient conjugu\'e}
+
+Pour minimiser cette fonctionnelle, on utilise la
+\textbf{m\'ethode non-lin\'eaire du gradient conjugu\'e}. On
+d\'efinit dans cette m\'ethode le \textbf{r\'esidu} \`a
+l'it\'eration i par l'oppos\'e du gradient au point
+$\mathcal{C}_i$:
+\begin{equation}
+\mathbf{r}_i=-\mathbf{\nabla}
+\mathcal{L}(\mathcal{C})|_{\mathcal{C}=\mathcal{C}_i}
+\end{equation}
+
+$\mathbf{r_i}$ est un vecteur colonne \`a $N_a+N_b+N_c+N_d$
+composantes. L'oppos\'e du gradient pointe toujours dans la
+direction de "steepest descent". On cherche \`a chaque it\'eration
+dans une direction not\'ee $\mathbf{d_i}$ (vecteur colonne \`a
+$N_a+N_b+N_c+N_d$ composantes) dite conjugu\'ee de cette direction
+de "steepest descent", le point qui minimise
+$\mathcal{L}(\mathcal{C})$, autrement dit, on cherche un nombre
+$\alpha_i$ tel que
+\begin{equation}
+\frac{d}{d\alpha_i}\mathcal{L}\left(\mathcal{C}_i+\alpha_i\,\mathbf{d_i}\right)=0
+\end{equation}
+
+en utilisant la r\`egle de Leibniz, cette \'equation s'\'ecrit
+
+\begin{equation}
+\overbrace{\frac{\partial}{\partial\left(\mathcal{C}_i+\alpha_i\,\mathbf{d_i}\right)}
+\mathcal{L}\left(\mathcal{C}_i+\alpha_i\,\mathbf{d_i}\right)}^{=\nabla\mathcal{L}(\mathcal{C})|_{\mathcal{C}=\mathcal{C}_i+\alpha_i\,\mathbf{d_i}}}
+\,.\,\underbrace{\frac{d}{d\alpha_i}
+\left(\mathcal{C}_i+\alpha_i\,\mathbf{d_i}\right)}_{=\mathbf{d_i}}=0
+\end{equation}
+
+soit finalement
+
+\begin{equation}
+\nabla\mathcal{L}(\mathcal{C})|_{\mathcal{C}=\mathcal{C}_i+\alpha_i\,\mathbf{d_i}}\,.\,\mathbf{d_i}=0
+\end{equation}
+
+Posons
+\begin{equation}
+\mathcal{G}_{\mathcal{C}_i,\mathbf{d_i}}(\alpha_i)=\nabla\mathcal{L}(\mathcal{C})
+|_{\mathcal{C}=\mathcal{C}_i+\alpha_i\,\mathbf{d_i}}\,.\,\mathbf{d_i}
+\end{equation}
+
+
+$\alpha_i$ est donc solution de l'\'equation
+
+\begin{equation}
+\mathcal{G}_{\mathcal{C}_i,\mathbf{d_i}}(\alpha_i)=0
+\end{equation}
+
+Cette \'equation est r\'esolue sous Mathematica \`a l'aide de la
+primitive \verb+ FindRoot[f[t],{t,0}]+.
+
+La direction $\mathbf{d_i}$ est d\'efinie par
+
+\begin{equation}\left\{\begin{array}{c}
+\mathbf{d_0}=\mathbf{r_0}\\
+\mathbf{d_{i+1}}=\mathbf{r_{i+1}}+\beta_{i+1}\,\mathbf{d_i}\,\,i>1\end{array}\right.
+\end{equation}
+
+avec $\beta_{i+1}$ donn\'e par l'expression de Polak-Ribi\`ere:
+
+\begin{equation}
+\beta_{i+1}=\max\left(\frac{\mathbf{r_{i+1}}\,.\,\left(\mathbf{r_{i+1}}-\mathbf{r_{i}}\right)}{\mathbf{r_i}\,.\,\mathbf{r_i}},0\right)
+\end{equation}
+
+
+Une fois la direction $\mathbf{d_i}$ et la racine $\alpha_i$
+d\'etermin\'ees, on actualise $\mathcal{C}_i$ par
+
+\begin{equation}
+\mathcal{C}_{i+1}=\mathcal{C}_i+\alpha_i\,\mathbf{d_i}
+\end{equation}
+
+ Pour d\'emarrer le proc\'ed\'e it\'eratif, on se donne un ensemble de d\'epart
+$\mathcal{C}_0=\left\{a_1^{(0)},\ldots,a_{N_a}^{(0)},b_1^0,\ldots,b_{N_b}^{(0)},c_1^{(0)},\ldots,c_{N_c}^{(0)},d_1^{(0)},\ldots,d_{N_d}^{(0)}\right\}$.
+On calcule ensuite $\mathbf{r_0}$ et $\mathbf{d_0}$ puis on
+d\'etermine $\alpha_0$. On construit alors
+$\mathcal{C}_{1}=\mathcal{C}_0+\alpha_0\,\mathbf{d_0}$, ce qui
+permet de calculer $\mathbf{r_1}$ et d'obtenir $\beta_1$ et
+$\mathbf{d_1}$, etc...
+
+Le proc\'ed\'e it\'eratif est stopp\'e lorsque la norme du
+r\'esidu \`a l'\'etape k est inf\'erieure \`a une valeur
+$\epsilon$ donn\'ee, la plus petite possible. On aura alors en
+principe d\'eterminer le point $\mathcal{C}_k$ o\`u le gradient
+est nul et la fonctionnelle minimale.
+
+\subsection{Raffinement de la solution obtenue par minimisation}
+
+
+Le proc\'ed\'e it\'eratif d\'ecrit ci-dessus permet d'obtenir une
+solution approch\'ee sous forme de s\'eries de Fourier des
+trajectoires des N corps. Pour obtenir une solution plus pr\'ecise
+\`a partir de celle obtenue par la m\'ethode de gradient
+conjugu\'e, on applique la \textbf{m\'ethode de shooting
+multiple}. On va d'abord d\'ecrire la \textbf{m\'ethode de
+shooting simple}.
+
+ \subsubsection{M\'ethode de shooting simple}
+
+Reprenons l'\'equation (\ref{eq3}):
+
+\begin{equation}
+\Phi\left(\frac{T}{N},Q(t)\right)=\sigma\left(\Phi\left(t,Q(0)\right)\right)
+\end{equation}
+
+Prenant t=0, on obtient
+
+\begin{equation}
+\Phi\left(\frac{T}{N},Q(0)\right)=\sigma.\Phi\left(0,Q(0)\right)=\sigma.Q(0)
+\end{equation}
+
+Soit encore
+
+\begin{equation}\label{eq10}
+G\left(Q(0)\right)\equiv\Phi\left(\frac{T}{N},Q(0)\right)-\sigma.Q(0)=0
+\end{equation}
+
+\textbf{Sous cette forme, on note qu'il s'agit de trouver un
+vecteur-colonne \`a 4N-4 composantes $\mathbf{Q(0)}$ tel que}
+$\mathbf{G\left(W\right)=0}$.
+
+L'id\'ee est de chercher \`a r\'esoudre cette \'equation par la
+m\'ethode de Newton-Raphson: On se donne une solution approch\'ee
+$W_0$ et on utilise la formule de r\'ecurrence
+
+\begin{equation}
+W_{i+1}=W_i-\left(\frac{\partial G\left(Q(0)\right)}{\partial
+Q(0)}\mid_{Q(0)=W_i}\right)^{-1}\,G\left(W_i\right)
+\end{equation}
+
+avec
+
+\begin{equation}
+\frac{\partial G\left(Q(0)\right)}{\partial
+Q(0)}\mid_{Q(0)=W}=\frac{\partial\Phi\left(\frac{T}{N},Q(0)\right)}{\partial
+Q(0)}\mid_{Q(0)=W}-\frac{\partial
+\left(\sigma.Q(0)\right)}{\partial Q(0)}\mid_{Q(0)=W}
+\end{equation}
+
+soit finalement
+
+\begin{equation}\boxed{
+\frac{\partial G\left(Q(0)\right)}{\partial
+Q(0)}\mid_{Q(0)=W}=\frac{\partial\Phi\left(\frac{T}{N},Q(0)\right)}{\partial
+Q(0)}\mid_{Q(0)=W}-\sigma}
+\end{equation}
+
+On rappelle que la quantit\'e
+$\frac{\partial\Phi\left(\frac{T}{N},Q(0)\right)}{\partial Q(0)}$
+est la matrice jacobienne associ\'ee au Flot
+$\Phi\left(t,Q(0)\right)$ \'evalu\'ee \`a l'instant
+$t=\frac{T}{N}$. L'\'evolution temporelle de celle-ci est r\'egie
+par l'\'equation variationnelle du premier ordre:
+
+\begin{eqnarray*}
+\frac{d}{dt}\left[\frac{\partial\Phi\left(t,Q(0)\right)}{\partial
+Q(0)}\right]&=&\frac{\partial
+F(Q(t))}{\partial Q(t)}\,\frac{\partial\Phi\left(t,Q(0)\right)}{\partial Q(0)}\\
+\\
+\frac{\partial\Phi\left(0,Q(0)\right)}{\partial
+Q(0)}&=&\openone\,\,\mbox{           (conditions initiales)}
+\end{eqnarray*}
+
+Pour d\'eterminer
+$\frac{\partial\Phi\left(\frac{T}{N},Q(0)\right)}{\partial Q(0)}$,
+il est n\'ecessaire de r\'esoudre simultan\'ement le syst\`eme
+d'\'equations diff\'erentielles lin\'eaires pr\'ec\'edente
+jusqu`\`a l'instant $t=\frac{T}{N}$ et le syst\`eme d\'equations
+diff\'erentielles non-lin\'eaire qui r\'egit l'\'evolution du
+probl\`eme \`a N corps (\ref{eq4}):
+
+\begin{equation}\label{eq6}
+\left\{\begin{array}{c}
+ \dot{Q}(t)=F\left(\;^tQ(t)\right)\\
+ \\
+\frac{d}{dt}\left[\frac{\partial\Phi\left(t,Q(0)\right)}{\partial
+Q(0)}\right]=\frac{\partial
+F(\;^tQ(t))}{\partial Q(t)}\,\frac{\partial\Phi\left(t,Q(0)\right)}{\partial Q(0)}\\
+\\
+\frac{\partial\Phi\left(0,Q(0)\right)}{\partial
+Q(0)}=\openone\end{array}\right.
+ \end{equation}
+
+En termes de composantes dans l'espace des phases:
+
+\begin{equation}\label{eq5}\left\{\begin{array}{c}
+ \dot{q_i}(t)=F_i\left(\;^tQ(t)\right)\\
+ \\
+\frac{d}{dt}\left[\left(\frac{\partial\Phi\left(t,Q(0)\right)}{\partial
+Q(0)}\right)_{ij}\right]=\frac{\partial
+F_i(\;^tQ(t))}{\partial q_k(t)}\,\left(\frac{\partial\Phi\left(t,Q(0)\right)}{\partial Q(0)}\right)_{kj}\\
+\\
+\left(\frac{\partial\Phi\left(0,Q(0)\right)}{\partial
+Q(0)}\right)_{ij}=\delta_{ij}\end{array}\right.
+ \end{equation}
+
+Dans ces \'equations, on a
+
+\begin{equation}
+q_{i+4(j-2)}(t)=\left(X_j(t)\right)_i\mbox{  i=1\ldots4, j=2\ldots
+N}\end{equation}
+
+o\`u $\left(X_j(t)\right)_i$ repr\'esente la i\`eme composante de
+la quantit\'e $X_j(t)$.
+
+L'inconv\'enient de cette m\'ethode povient des impr\'ecisions
+num\'eriques inh\'erentes aux algorithmes d'int\'egration
+d'\'equations diff\'erentielles. Celles-ci ont tendances \`a
+s'amplifier plus le domaine d'int\'egration est \'etendu. Pour
+pallier \`a ces probl\`emes d'ordre num\'erique, il est
+n\'ecessaire de r\'eduire les intervalles sur lesquels le
+syst\`eme (\ref{eq5}) est int\'egr\'e.
+
+\subsubsection{M\'ethode du shooting multiple}
+
+Pour r\'eduire l'intervalle d'int\'egration et ainsi emp\^echer
+l'amplification des impr\'ecisions inh\'erentes \`a toute
+m\'ethode num\'erique $\left[0,\frac{T}{N}\right]$, on subdivise
+celui-ci en prenant K points int\'erieurs:
+\begin{equation}
+t_1=0<t_2<t_3<\ldots<t_k<\ldots<t_K<\frac{T}{N}
+\end{equation}
+
+La m\'ethode du shooting simple consistait \`a chercher Q(0) tel
+que
+\begin{equation}
+G(Q(0))=0
+\end{equation}
+
+Dans le cas du shooting multiple, on g\'en\'eralise cette
+proc\'edure en d\'efinissant un ensemble de variables
+$Q(t_1),Q(t-2),\ldots,Q(t_K)$ tel que ces variables soient
+solutions du syst\`eme d'\'equations:
+
+\begin{equation}\label{eq9}\left\{\begin{array}{c}
+\mathcal{G}_1(Q(t_1),Q(t_2),\ldots,Q(t_K))=0\\
+\mathcal{G}_2(Q(t_1),Q(t_2),\ldots,Q(t_K))=0\\
+\mathcal{G}_3(Q(t_1),Q(t_2),\ldots,Q(t_K))=0\\
+\mathcal{G}_4(Q(t_1),Q(t_2),\ldots,Q(t_K))=0\\
+\vdots\\
+\mathcal{G}_{K-1}(Q(t_1),Q(t_2),\ldots,Q(t_K))=0\\
+ \mathcal{G}_K(Q(t_1),Q(t_2),\ldots,Q(t_K))=0
+\end{array}\right.
+\end{equation}
+
+\vspace{1cm}
+ \textbf{\underline{\texttt{Formalisation du probl\`eme}}}
+\vspace{1cm}
+
+ Consid\'erons la
+restriction de la solution du syst\`eme (\ref{eq6}) sur
+l'intervalle $\left[t_i,t_{i+1}\right]$ not\'ee
+$\mathcal{Q}_i(t)$:
+\begin{eqnarray*}
+\mathcal{Q}_i:\left[t_i,t_{i+1}\right]&\rightarrow&\mathbb{R}^{4N-4}\,\,\,\,\,\,\,i=1\ldots K-1\\
+t&\mapsto& Q(t)
+\end{eqnarray*}
+
+ainsi que celle sur l'intervalle $\left[t_K,\frac{T}{N}\right]$
+
+\begin{eqnarray*}
+\mathcal{Q}_K:\left[t_K,\frac{T}{N}\right]&\rightarrow&\mathbb{R}^{4N-4}\\
+t&\mapsto& Q(t)
+\end{eqnarray*}
+
+D'apr\`es l'\'equation (\ref{eq7}), on peut aussi \'ecrire sur
+chaque intervalle:
+\begin{equation}
+Q(t)=\Phi\left(t-t_i,Q(t_i)\right)
+\end{equation}
+
+on a donc
+
+\begin{equation}\label{eq8}
+\mathcal{Q}_i(t)=\Phi\left(t-t_i,Q(t_i)\right)\,\,\,i=1\ldots K
+\end{equation}
+
+
+ La solution $Q(t)$ \'etant continue sur l'intervalle global $\left[0,\frac{T}{N}\right]$, les restrictions
+  $\left\{\mathcal{Q}_i\right\}_{i=1\ldots K-1}$ v\'erifient les conditions
+de raccordements:
+
+\begin{equation}
+\mathcal{Q}_i\left(t_{i+1}\right)=\mathcal{Q}_{i+1}\left(t_{i+1}\right)
+\end{equation}
+
+Dans le cas de la restriction $\mathcal{Q}_K$, la condition de
+raccordement s'\'ecrit:
+\begin{equation}
+\mathcal{Q}_K\left(\frac{T}{N}\right)=Q\left(\frac{T}{N}\right)=\sigma.Q(0)=\sigma.Q(t_1)=\sigma.\mathcal{Q}_1(t_1)
+\end{equation}
+
+On a donc le syst\`eme d'\'equations de dimension K:
+\begin{equation}\left\{\begin{array}{c}
+\mathcal{Q}_i\left(t_{i+1}\right)=\mathcal{Q}_{i+1}\left(t_{i+1}\right)\\
+\mathcal{Q}_K\left(\frac{T}{N}\right)=\sigma.\mathcal{Q}_1(t_1)
+\end{array}\right.
+\end{equation}
+
+On peut r\'eexprimer ce syst\`eme en termes du Flot associ\'e \`a
+la solution du syst\`eme d'\'equations diff\'erentielles
+non-lin\'eaire (\ref{eq6}) en utilisant les \'equations
+(\ref{eq8}):
+
+\begin{equation}\left\{\begin{array}{c}
+\Phi\left(t_{i+1}-t_i,Q(t_i)\right)=\Phi\left(0,Q(t_{i+1})\right)=Q(t_{i+1})\,\,\,\,i=1\ldots K-1\\
+\\
+\Phi\left(\frac{T}{N}-t_K,Q(t_K)\right)=\sigma.Q(t_1)
+\end{array}\right.
+\end{equation}
+
+explicitement
+
+\begin{equation}\label{eq9}\left\{\begin{array}{c}
+\Phi\left(t_{2}-t_1,Q(t_1)\right)=Q(t_{2})\\
+\Phi\left(t_3-t_2,Q(t_2)\right)=Q(t_3)\\
+\Phi\left(t_4-t_3,Q(t_2)\right)=Q(t_4)\\
+\Phi\left(t_5-t_4,Q(t_2)\right)=Q(t_5)\\
+\vdots\\
+\Phi\left(t_K-t_{K-1},Q(t_{K-1})\right)=Q(t_K)\\
+ \Phi\left(\frac{T}{N}-t_K,Q(t_K)\right)=\sigma.Q(t_1)
+\end{array}\right.
+\end{equation}
+
+Posons
+
+\begin{equation}\left\{\begin{array}{c}
+\mathcal{F}_i(Q(t_1),Q(t_2),\ldots,Q(t_K))=\Phi\left(t_{i+1}-t_i,Q(t_i)\right)\,\,\,\,i=1\ldots K-1\\
+\\
+\mathcal{F}_K(Q(t_1),Q(t_2),\ldots,Q(t_K))=\Phi\left(\frac{T}{N}-t_K,Q(t_K)\right)
+\end{array}\right.
+\end{equation}
+
+Avec ces notations, le syst\`eme (\ref{eq9}) s'\'ecrit
+
+
+\begin{equation}\label{eq9}\left\{\begin{array}{c}
+\mathcal{F}_1(Q(t_1),Q(t_2),\ldots,Q(t_K))=Q(t_{2})\\
+\mathcal{F}_2(Q(t_1),Q(t_2),\ldots,Q(t_K))=Q(t_3)\\
+\mathcal{F}_3(Q(t_1),Q(t_2),\ldots,Q(t_K))=Q(t_4)\\
+\mathcal{F}_4(Q(t_1),Q(t_2),\ldots,Q(t_K))=Q(t_5)\\
+\vdots\\
+\mathcal{F}_{K-1}(Q(t_1),Q(t_2),\ldots,Q(t_K))=Q(t_K)\\
+ \mathcal{F}_K(Q(t_1),Q(t_2),\ldots,Q(t_K))=\sigma.Q(t_1)
+\end{array}\right.
+\end{equation}
+
+soit encore en notation matricielle:
+
+\begin{equation}\label{eq9}\left(\begin{array}{c}
+\mathcal{F}_1(Q(t_1),Q(t_2),\ldots,Q(t_K))\\
+\mathcal{F}_2(Q(t_1),Q(t_2),\ldots,Q(t_K))\\
+\mathcal{F}_3(Q(t_1),Q(t_2),\ldots,Q(t_K))\\
+\mathcal{F}_4(Q(t_1),Q(t_2),\ldots,Q(t_K))\\
+\vdots\\
+\mathcal{F}_{K-1}(Q(t_1),Q(t_2),\ldots,Q(t_K))\\
+ \mathcal{F}_K(Q(t_1),Q(t_2),\ldots,Q(t_K))
+\end{array}\right)=
+\left(\begin{array}{ccccccc}
+ 0 & 1 & 0 & 0 &\ldots& 0 &0\\
+ 0 & 0 & 1 & 0 &\ldots& 0 &0\\
+ 0 & 0 & 0 & 1 &\ldots& 0 &0\\
+\vdots&\vdots&\vdots&0&0&\ddots&0\\
+ 0 & 0 & 0 & 0 &\ldots & 0&1\\
+ \sigma&0 &0&0&\ldots&0&0\end{array}\right)
+\left(\begin{array}{c}
+Q(t_1)\\
+Q(t_2)\\
+Q(t_3)\\
+Q(t_4)\\
+\vdots\\
+Q(t_{K-1})\\
+Q(t_K)
+\end{array}\right)
+\end{equation}
+
+
+Notons
+
+\begin{equation}
+\vec{Q}=\left(\begin{array}{c}
+Q(t_1)\\
+Q(t_2)\\
+Q(t_3)\\
+Q(t_4)\\
+\vdots\\
+Q(t_{K-1})\\
+Q(t_K)
+\end{array}\right)
+\,\,\,\,\,\,\,\,\,\mathcal{R}= \left(\begin{array}{ccccccc}
+ 0 & 1 & 0 & 0 &\ldots& 0 &0\\
+ 0 & 0 & 1 & 0 &\ldots& 0 &0\\
+ 0 & 0 & 0 & 1 &\ldots& 0 &0\\
+\vdots&\vdots&\vdots&0&0&\ddots&0\\
+ 0 & 0 & 0 & 0 &\ldots & 0&1\\
+ \sigma&0 &0&0&\ldots&0&0\end{array}\right)
+ \end{equation}
+
+avec comme d\'efini plus haut
+
+\begin{equation}
+Q(t)=\left(\begin{array}{c} X_2(t)\\
+\vdots\\
+X_N(t)\end{array}\right)\,\,\,\,\,\,\,\,
+ X_i(t)=\left(\begin{array}{c}
+ x_i(t)\\
+ v_i(t)\\
+ y_i(t)\\
+ w_i(t)\end{array}\right)
+\end{equation}
+
+ Dans l'espace des phases, l'application lin\'eaire $\mathcal{R}$ a pour
+expression:
+
+\begin{equation}
+\mathcal{R}= \left(\begin{array}{ccccccc}
+ 0 & \openone_{4N-4} & 0 & 0 &\ldots& 0 &0\\
+ 0 & 0 & \openone_{4N-4} & 0 &\ldots& 0 &0\\
+ 0 & 0 & 0 & \openone_{4N-4} &\ldots& 0 &0\\
+\vdots&\vdots&\vdots&0&0&\ddots&0\\
+ 0 & 0 & 0 & 0&\ldots & 0&\openone_{4N-4}\\
+ \mathcal{M}^{(N-1)}\otimes\openone_4&0 &0&0&\ldots&0&0\end{array}\right)
+ \end{equation}
+
+Dans cette expression, chaque \'el\'ement nul repr\'esente en fait
+la matrice carr\'ee nulle de dimension $(4N-4)\times(4N-4)$. La
+matrice carr\'ee $\mathcal{R}$ est donc de dimension
+$(4N-4)K\times(4N-4)K$ dans cet espace. Avec ces notations:
+
+\begin{equation}\left\{\begin{array}{c}
+\mathcal{F}_i(\vec{Q})=\Phi\left(t_{i+1}-t_i,Q_i\right)\,\,\,\,i=1\ldots K-1\\
+\\
+\mathcal{F}_K(\vec{Q})=\Phi\left(\frac{T}{N}-t_K,Q_k\right)
+\end{array}\right.
+\end{equation}
+
+ Notons enfin $\mathcal{F}(Q(t_1),Q(t_2),\ldots,Q(t_K))\equiv\mathcal{F}(\vec{Q})$ le
+vecteur-colonne de composantes
+$\left\{\mathcal{F}_i(Q(t_1),Q(t_2),\ldots,Q(t_K))\right\}_{i=1\ldots
+K}$ d\'efini ci-dessus, on obtient:
+
+\begin{equation}
+\mathcal{G}(\vec{Q})=\mathcal{F}(\vec{Q})-\mathcal{R}.\vec{Q}=0
+\end{equation}
+
+qui repr\'esente le syst\`eme de dimension K suivant:
+\begin{equation}
+\mathcal{G}_i(\vec{Q})=\mathcal{F}_i(\vec{Q})-\sum_{j=1}^{K}\mathcal{R}_{ij}Q_j=0
+\end{equation}
+
+Ce syst\`eme g\'en\'eralise celui obtenu dans le cadre du shooting
+simple (\'equation (\ref{eq10})). On r\'ecup\`ere les \'equations
+obtenues dans ce cadre en posant K=1.
+
+Pour r\'esoudre ce syst\`eme d'\'equations, on utilise comme dans
+le cas du shooting simple, la m\'ethode de Newton-Raphson:
+
+Soit \`a d\'eterminer $\vec{Q}\in\mathbb{R}^d$ tel que
+$\mathcal{G}(\vec{Q})=0$ avec
+$\mathcal{G}(\vec{Q})\in\mathbb{R}^d$. Partant d'une solution
+approch\'ee $\vec{Q}^{(0)}$, on obtient la solution recherch\'ee
+en utilisant la formule de r\'ecurrence suivante:
+
+\begin{equation}
+\vec{Q}^{(i)}=\vec{Q}^{(i-1)}-\left(\nabla_{\vec{Q}}\mathcal{G}(\vec{Q})\mid_{\vec{Q}=\vec{Q}^{(i-1)}}\right)^{-1}
+.\mathcal{G}(\vec{Q}^{(i-1)})
+\end{equation}
+
+Il est n\'ecessaire de calculer la matrice des d\'eriv\'ees
+partielles d\'efinie par
+$\nabla_{\vec{Q}}\mathcal{G}(\vec{Q})\mid_{\vec{Q}=\vec{Q}^{(i-1)}}$.
+Son expression est donn\'ee par:
+
+\begin{eqnarray*}
+\left(\nabla_{\vec{Q}}\mathcal{G}(\vec{Q})\right)_{ij}&=&
+\frac{\partial\mathcal{G}_i(\vec{Q})}{\partial
+Q_j}\\
+&=&\frac{\partial\mathcal{F}_i(\vec{Q})}{\partial
+Q_j}-\mathcal{R}_{ij}
+\end{eqnarray*}
+
+soit
+
+\begin{equation}\
+\left(\nabla_{\vec{Q}}\mathcal{G}(\vec{Q})\right)_{ij}=
+\left\{\begin{array}{c}
+\frac{\partial\Phi\left(t_{i+1}-t_i,Q_i\right)}{\partial
+Q_j}-\mathcal{R}_{ij}=\frac{\partial\Phi\left(t_{i+1}-t_i,Q_i\right)}{\partial
+Q_i}\,\delta_{ij}-\mathcal{R}_{ij}\,\,\,\,\,\,\,\,\,i=1\ldots K-1,\,\,\,j=1\ldots K\\
+\frac{\partial\Phi\left(\frac{T}{N}-t_K,Q_K\right)}{\partial
+Q_j}-\mathcal{R}_{Kj}\,\,\,\,\,i=K,\,\,j=1\ldots K
+\end{array}\right.
+\end{equation}
+
+
+Finalement
+
+\begin{equation}\left\{\begin{array}{c}
+\left(\nabla_{\vec{Q}}\mathcal{G}(\vec{Q})\right)_{1\leq i\leq
+K-1\,\,\,1\leq j \leq
+K}=\frac{\partial\Phi\left(t_{i+1}-t_i,Q_i\right)}{\partial
+Q_i}\,\delta_{ij}-\mathcal{R}_{ij}\\
+\left(\nabla_{\vec{Q}}\mathcal{G}(\vec{Q})\right)_{K\,\,\,1\leq j
+\leq
+K}=\frac{\partial\Phi\left(\frac{T}{N}-t_K,Q_K\right)}{\partial
+Q_K}\,\delta_{Kj}-\mathcal{R}_{Kj}
+\end{array}\right.
+\end{equation}
+
+ce que l'on peut r\'e\'ecrire sous la forme
+
+\begin{equation}\label{eq12}
+\nabla_{\vec{Q}}\mathcal{G}(\vec{Q})=\left(\begin{array}{ccccc}
+\frac{\partial\Phi\left(t_2-t_1,Q_1\right)}{\partial
+Q_1}&0&0&\ldots&0\\
+0&\frac{\partial\Phi\left(t_3-t_2,Q_2\right)}{\partial
+Q_2}&0&\ldots&0\\
+0&0&\frac{\partial\Phi\left(t_4-t_3,Q_3\right)}{\partial
+Q_3}&\ldots&0\\
+0&0&0&\ddots&0\\
+0&0&0&\ldots&\frac{\partial\Phi\left(\frac{T}{N}-t_K,Q_K\right)}{\partial
+Q_K}\end{array}\right)-\mathcal{R}
+\end{equation}
+
+Sur cette expression, nous voyons qu'il faut d\'eterminer les
+matrice jacobiennes
+$\left\{\frac{\partial\Phi\left(t_{i+1}-t_i,Q_i\right)}{\partial
+Q_i}\right\}_{i=1\ldots K-1}$ ainsi que la matrice jacobienne
+$\frac{\partial\Phi\left(\frac{T}{N}-t_K,Q_K\right)}{\partial
+Q_K}$. On rappelle que celles-ci peuvent \^etre obtenues par
+int\'egration du syst\`eme de dimension $4N-4$ d'\'equations
+diff\'erentielles non-lin\'eaires sur l'intervalle
+$\left[0,t_{i+1}-t_i\right]$:
+
+\begin{equation}\label{eq11}
+\left\{\begin{array}{c}
+ \dot{Q}(t)=F\left(\;^tQ(t)\right)\\
+ \\
+ Q(0)=Q_i\\
+ \\
+\frac{d}{dt}\left[\frac{\partial\Phi\left(t,Q_i\right)}{\partial
+Q_i}\right]=\frac{\partial
+F(\;^tQ(t))}{\partial Q(t)}\,\frac{\partial\Phi\left(t,Q_i\right)}{\partial Q_i}\\
+\\
+\frac{\partial\Phi\left(0,Q_i\right)}{\partial
+Q_i}=\openone\end{array}\right.
+ \end{equation}
+
+La quantit\'e
+$\frac{\partial\Phi\left(\frac{T}{N}-t_K,Q_K\right)}{\partial
+Q_K}$ est obtenu de fa\c con analogue en consid\'erant le
+syst\`eme suivant sur l'intervalle
+$\left[0,\frac{T}{N}-t_K\right]$:
+
+\begin{equation}\label{eq13}
+\left\{\begin{array}{c}
+ \dot{Q}(t)=F\left(\;^tQ(t)\right)\\
+ \\
+ Q(0)=Q_K\\
+ \\
+\frac{d}{dt}\left[\frac{\partial\Phi\left(t,Q_K\right)}{\partial
+Q_K}\right]=\frac{\partial
+F(\;^tQ(t))}{\partial Q(t)}\,\frac{\partial\Phi\left(t,Q_K\right)}{\partial Q_K}\\
+\\
+\frac{\partial\Phi\left(0,Q_K\right)}{\partial
+Q_K}=\openone\end{array}\right.
+ \end{equation}
+
+ \vspace{.5cm}
+\underline{\textbf{\texttt{M\'ethodologie}}} \vspace{.5cm}
+
+ On se donne dans un premier temps les quantit\'es $\left\{Q_i\right\}_{i=1\ldots K}$, obtenues par exemple apr\`es minimisation du Lagrangien
+. Ces quantit\'es sont les conditions initiales utilis\'ees dans
+les syst\`emes (\ref{eq11}) et (\ref{eq13}). \`Apr\`es
+int\'egration de ces syst\`emes, on construit alors la matrice
+diagonale par blocs de
+ l'\'equation (\ref{eq12}) et l'expression de $\nabla_{\vec{Q}}\mathcal{G}(\vec{Q})$ qui en d\'ecoule.
+
+
+\begin{appendix}
+\section{Application du shooting au cas d'un exemple analytique}
+
+\subsection{Introduction}
+Considr\'erons le syst\`eme diff\'erentiel o\`u $x(t)$
+repr\'esente une fonction \`a variable r\'eelle t:
+
+\begin{equation}\left\{\begin{array}{c}
+\dot{x}(t)=x(t)\left(1-x(t)\right)\mbox{  }t\in[0;1]\\
+x(1)=\frac{1}{2}
+\end{array}\right.\end{equation}
+
+\subsection{Solution analytique du probl\`eme}
+
+Ce syst\`eme poss\`ede une solution analytique. En effet
+formellement:
+\begin{eqnarray*}
+\dot{x}(t)&=&x(t)\left(1-x(t)\right)\\
+\frac{dx(t)}{x(t)\left(1-x(t)\right)}&=&dt\\
+\frac{dx(t)}{x(t)}+\frac{dx(t)}{\left(1-x(t)\right)}&=&dt\\
+d\ln\left(x(t)\right)-d\ln\left[\left(1-x(t)\right)\right]&=&dt\\
+d\ln\left[\frac{x(t)}{\left(1-x(t)\right)}\right]&=&dt\\
+\frac{x(t)}{\left(1-x(t)\right)}&=&t+C\,\,\,\,C\in\Real
+\end{eqnarray*}
+
+On en d\'eduit en posant
+
+\begin{equation}
+A=e^{C}
+\end{equation}
+
+
+\begin{equation}
+x(t)=\frac{A\,e^t}{1-A\,e^t}
+\end{equation}
+
+
+la condition aux limites $x(1)=\frac{1}{2}$ fournit
+\begin{equation}
+A=e^{-1}
+\end{equation} et la solution \`a ce syst\`eme s'\'ecrit
+
+\begin{equation}\boxed{
+x_{th.}(t)=\frac{e^{t-1}}{1-e^{t-1}}}
+\end{equation}
+
+\subsection{Formulation du probl\`eme en termes du Flot}
+Pour appliquer la m\'ethode du shooting, on se donne un ensemble
+de K points int\'erieurs aux segment
+$[0;1]$:$t_1=0<t_2<\ldots<t_K<1$. On d\'efinit un vecteur-colonne
+\`a K composantes:
+\begin{equation}
+X=\left(\begin{array}{c} x(t_1)\\
+x(t_2)\\
+\vdots\\
+x(t_K)\end{array}\right)
+\end{equation}
+
+D\'efinissons le flot associ`\'e au syst\`eme par
+\begin{equation}
+x(t)=\phi\left(t-a,x(a)\right)
+\end{equation}
+
+valable pour tout $a\in[0;1]$. La continuit\'e de la solution aux
+divers points $\left\{t_i\right\}_{i=1\ldots K+1}$ du segment
+$[0;1]$ se traduit par les K \'equations:
+\begin{equation}\left\{\begin{array}{c}
+\phi\left(t_2-t_1,x(t_1)\right)=x(t_2)\\
+\phi\left(t_3-t_2,x(t_2)\right)=x(t_3)\\
+\vdots\\
+\phi\left(t_{i+1}-t_i,x(t_i)\right)=x(t_{i+1})\\
+\vdots\\
+\phi\left(1-t_K,x(t_K)\right)=x(1)=\frac{1}{2}
+\end{array}\right.\end{equation}
+
+Sous forme matricielle:
+
+\begin{equation}\left(\begin{array}{c}
+\phi\left(t_2-t_1,x(t_1)\right))\\
+\phi\left(t_3-t_2,x(t_2)\right)\\
+\vdots\\
+\phi\left(t_{i+1}-t_i,x(t_i)\right)\\
+\vdots\\
+\phi\left(1-t_K,x(t_K)\right)
+\end{array}\right)
+=\left(\begin{array}{ccccc} 0 & 1 & 0 &\ldots &0\\
+0 & 0 & 1 &\ldots & 0\\
+\ldots & \ldots & \ddots & \ddots & 0\\
+\ldots & \ldots & \ldots & \ddots & 1\\
+0 & 0 & 0 & \ldots & 0\end{array}\right)\left(\begin{array}{c} x(t_1)\\
+x(t_2)\\
+\vdots\\
+\vdots\\
+ x(t_K)\end{array}\right)+\left(\begin{array}{c} 0\\
+0\\
+\vdots\\
+\vdots\\
+ \frac{1}{2}\end{array}\right)
+\end{equation}
+
+Posons
+
+\begin{equation}
+\mathcal{F}(X)=\left(\begin{array}{c}
+\phi\left(t_2-t_1,x(t_1)\right))\\
+\phi\left(t_3-t_2,x(t_2)\right)\\
+\vdots\\
+\phi\left(t_{i+1}-t_i,x(t_i)\right)\\
+\vdots\\
+\phi\left(1-t_K,x(t_K)\right)
+\end{array}\right)
+\,\,\,\,\sigma=\left(\begin{array}{ccccc} 0 & 1 & 0 &\ldots &0\\
+0 & 0 & 1 &\ldots & 0\\
+\ldots & \ldots & \ddots & \ddots & 0\\
+\ldots & \ldots & \ldots & \ddots & 1\\
+0 & 0 & 0 & \ldots & 0\end{array}\right)\,\,\,\, B=\left(\begin{array}{c} 0\\
+0\\
+\vdots\\
+\vdots\\
+ \frac{1}{2}\end{array}\right)
+\end{equation}
+
+On obtient formellemnt
+
+\begin{equation}
+\mathcal{F}(X)-\sigma.X-B=\mathcal{G}(X)=0
+\end{equation}
+
+Il s'agit donc de r\'esoudre le syst\`eme d'\'equations
+
+\begin{equation}\label{eq14}\boxed{
+\mathcal{G}(X)=0}
+\end{equation}
+
+
+\subsection{M\'ethode de Newton Ralphson}
+
+La solution de l'\'equation (\ref{eq14}) est obtenue par la
+m\'ethode de Newton-Ralphson:
+\begin{equation}\label{eq15}
+X^{(i)}=X^{(i-1)}-\left(\nabla_X\mathcal{G}(X)\mid_{X=X^{(i-1)}}\right)^{-1}\,\mathcal{G}(X^{(i-1)})
+\end{equation}
+
+Pour appliquer le proc\'ed\'e it\'eratif, il est n\'ecessaire de
+calculer la matrice des d\'eriv\'ees partielles
+$\nabla_X\mathcal{G}(X)$:
+
+\begin{equation}
+\nabla_X\mathcal{G}(X)=\frac{\partial\mathcal{F}(X)}{\partial
+X}-\sigma\end{equation}
+
+Le calcul donne directement
+
+\begin{equation}
+\nabla_X\mathcal{G}(X)=\left(\begin{array}{cccc}
+\frac{\partial\phi\left(t_2-t_1,x(t_1)\right)}{\partial x(t_1)} &
+0 &\ldots &0\\
+0 & \frac{\partial\phi\left(t_3-t_2,x(t_2)\right)}{\partial
+x(t_2)} &
+\ldots &0\\
+0 & 0 &\ddots& 0\\
+0 & 0 &\ldots &
+\frac{\partial\phi\left(1-t_K,x(t_K)\right)}{\partial x(t_K)}
+\end{array}\right)-\sigma
+\end{equation}
+
+Pour initier l'\'equation (\ref{eq15}), on peut prendre par
+exemple
+
+\begin{equation}
+X^{(0)}=\left(\begin{array}{c} x_{th.}(t_1)+.1\\
+x_{th.}(t_2)+.1\\
+\vdots\\
+x_{th.}(t_K)+.1\end{array}\right)
+\end{equation}
+
+\subsection{Programme Mathematica}
+
+\begin{verbatim}
+\!\(ClearAll[xa, \[Tau], DF, XF, X, SX, SH, IX, i, h, MXF, MDF,
+j,npt](* On commence*)
+
+xa[t_] = SetPrecision[\[ExponentialE]\^\((t - 1)\)\/\(1
++\[ExponentialE]\^\((t - \ 1)\)\), 40] (* on definit la solution
+theorique*)
+
+
+npt = 1 (* fixe le nombre de points interieur au segment [0;1]*)
+
+h = 1\/npt (* definit le pas *)
+
+ X =Table[\[Tau][i], {i, 1, npt}](* definit le vecteur des points intermediaires*)
+
+MDF = Table[DF[i, j], {i, 1, npt}, {j, 1, npt}] (* definit la
+matrice des derivees partielles*)
+
+MXF=Table[XF[i],{i, 1, npt}] (* definit la matrice du flot aux
+points intermediaires*)
+
+ For[i = 1, i <= \ npt, i = i + 1,
+    For[j = 1, j <= \ i - 1, j = j + 1, DF[i, j] = 0];
+    For[j = i + 1, j <= npt, j = j + 1, DF[i, j] = 0]]
+
+Clear[i, j]
+
+SX = Table[\[Tau][i], {i, 2, npt}](* vecteurs des points
+intermediaires avec les indices déplaces d'une unite vers la
+droite*)
+
+SH = Join[ Table[\[PartialD]\_\(X[\([j]\)]\)\ SX[\([i]\)], {i, 1,
+npt - 1}, {j, 1, npt}], {Table[0, {j, 1, npt}]}](*calcule la
+matrice sigma*)
+
+\[Tau][i_] = SetPrecision[\((i - 1)\)\ h, 40](* definit les
+  points intermediaires avec le pas constant h*)
+
+AS = Table[xa[\[Tau][i]], {i, 1, npt}] (*definit le vecteur
+solution theorique pour comparaison*)
+
+ IX=SetPrecision[Table[xa[\[Tau][i]] + 0.1, {i, 1, npt}],40](* definit le vecteur initial *)
+
+ BB = Join[Table[0, {j, 1, npt- 1}], List[1\/2]](* definit le vecteur B (cf texte)*)
+
+SetPrecision[\[CapitalLambda] = 1, 40](*initialise le maximum de
+G(X) pour tester si G(X)=0*)
+
+(* on commence la procede iteratif de Newton-Ralphson
+
+  While[Abs[\[CapitalLambda]] > 10\^\(-24\),
+  For[i = 1,
+      i <= \ npt, i = i + 1, ClearAll[sol];
+      dt = SetPrecision[\[Tau][i + 1] - \[Tau][i], 40];
+      sol = NDSolve[{\(x'\)[t] ==x[t]\ \((1 - x[t])\), \(Jac'\)[t] == \((1 - 2\ x[t])\)\ Jac[t],x[0] == SetPrecision[IX[\([i]\)], 40],
+      Jac[0] == 1.`40}, {x,Jac}, {t, 0.`40, dt}, Method -> Automatic, AccuracyGoal -> \ 30,WorkingPrecision -> \ 40, PrecisionGoal -> \ 30];
+      DF[i, i] = SetPrecision[Jac[dt] /. Flatten[sol], 40];
+      XF[i] = SetPrecision[x[dt] /. Flatten[sol], 40]]; DG = MDF - SH;
+    GG = MXF - Dot[SH . IX] - BB; \[CapitalLambda] = Max[Flatten[GG]];
+    IX = IX - Dot[Inverse[DG] . GG]]
+  MatrixForm[IX] (* affiche la solution trouvee par Newton-Ralphson*)
+
+  MatrixForm[AS](* affiche la solution theorique*)
+
+  ClearAll[sol]
+  \(sol =NDSolve[{\(x'\)[t] == x[t]\ \((1 - x[t])\),x[0] == IX[\([1]\)]}, {x}, {t, \[Tau][1],1. }];\)
+  Plot[{xa[t] - x[t] /. Flatten[sol]}, {t, 0, 1}]\) (* Trace la
+  difference entre la solution numerique et la solution
+  theorique*)
+\end{verbatim}
+
+
+\subsection{Simulations num\'eriques}
+
+\begin{equation}
+\left(\begin{array}{c}
+    0.2689414213699951207488407581781638 \\
+    0.28905049737499603653690176319966795 \\
+    0.31002551887238755736612593805156304 \\
+    0.33181222783183389346921167037012722 \\
+    0.35434369377420454709088936358811640 \\
+    0.377540668798145435361099434254490762 \\
+    0.401312339887547999630921340594491611 \\
+    0.4255574831883410128479287347653478342 \\
+    0.4501660026875220914408474581608236551 \\
+    0.47502081252106001390080681739585773062
+  \end{array}\right)\end{equation}
+
+
+\end{appendix}
+
+\end{document}

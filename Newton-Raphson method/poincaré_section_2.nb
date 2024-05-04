@@ -1,0 +1,437 @@
+(************** Content-type: application/mathematica **************
+                     CreatedBy='Mathematica 5.0'
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used with any Mathematica-compatible
+application, such as Mathematica, MathReader or Publicon. The data
+for the notebook starts with the line containing stars above.
+
+To get the notebook into a Mathematica-compatible application, do
+one of the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the
+  application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing
+the word CacheID, otherwise Mathematica-compatible applications may
+try to use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+*******************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[     18111,        390]*)
+(*NotebookOutlinePosition[     18758,        412]*)
+(*  CellTagsIndexPosition[     18714,        408]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[
+    \(\(\(\[IndentingNewLine]\)\(\(Needs["\<DifferentialEquations`\
+NDSolveProblems`\>"];\)\n
+    \(Needs["\<DifferentialEquations`NDSolveUtilities`\>"];\)\n
+    \(Off[General::spell, General::spell1];\)\n
+    \(ReapData[{_, {}}] := {};\)\n
+    \(ReapData[{_, {x_}}] := x;\)\n
+    \(Options[
+          EventLocator] = {"\<AccuracyGoal\>" \[Rule] 
+            Automatic, "\<Event\>" \[Rule] None, "\<MaxIterations\>" \[Rule] 
+            100, "\<Method\>" \[Rule] 
+            StiffnessSwitching, "\<PrecisionGoal\>" \[Rule] 
+            Automatic};\)\n\[IndentingNewLine]
+    \(EventLocatorProperties = 
+        Part[Options[EventLocator], All, 1];\)\n\[IndentingNewLine]
+    \(EventLocator /: 
+        NDSolve`InitializeMethod[EventLocator, stepmode_, nf_, ndstate_, 
+          rawmopts_] := 
+        Module[{ag, pg, el, elf, fropts, maxits, subm, submdata, 
+            wp},  (*Get\ the\ option\ values*) {ag, el, maxits, subm, pg} = 
+            NDSolve`GetMethodOptionValues[EventLocator, 
+              EventLocatorProperties, rawmopts]; \[IndentingNewLine]If[
+            SameQ[elf, 
+              None],  (*Message*) \(Throw[$Failed];\)]; \[IndentingNewLine]wp \
+= nf["\<WorkingPrecision\>"[]]; \[IndentingNewLine]If[SameQ[ag, Automatic], 
+            ag = 0.5*wp]; \[IndentingNewLine]If[\(! NumberQ[ag]\) || 
+              ComplexQ[ag], Message[NDSolve::accg, ag]; 
+            Throw[$Failed];]; \[IndentingNewLine]If[SameQ[pg, Automatic], 
+            pg = 0.5*wp]; \[IndentingNewLine]If[\(! NumberQ[pg]\) || 
+              ComplexQ[pg], Message[NDSolve::precg, pg]; 
+            Throw[$Failed];]; \[IndentingNewLine]If[\(! MatchQ[
+                maxits, \((_?IntegerQ | Automatic | Infinity)\)]\), 
+            Messages[NDSolve::maxits, maxits, "\<EventLocator\>"]; 
+            Throw[$Failed]]; \[IndentingNewLine]maxits = 
+            Min[Developer`$MaxMachineInteger, 
+              maxits]; \[IndentingNewLine] (*Initialize\ the\ integration\ \
+method\ to\ use*) submdata = 
+            NDSolve`InitializeSubmethod[subm, stepmode, nf, 
+              ndstate]; \[IndentingNewLine] (*Create\ a\ numerical\ function\ \
+from\ the\ event\ locator\ expression*) elf = 
+            ndstate["\<ProcessExpression\>"[All, 
+                
+                el, {}]]; \[IndentingNewLine] (*Check\ it\ is\ a\ valid\ \
+NumericalFunction*) If[\(! NDSolve`ValidNumericalFunctionQ[elf]\), 
+            Message[NDSolve::ndsnf, 
+              el, "\<EventLocator\>"]; \[IndentingNewLine]Throw[$Failed]]; \
+\[IndentingNewLine]fropts = {AccuracyGoal \[Rule] ag, 
+              PrecisionGoal \[Rule] pg, MaxIterations \[Rule] maxits, 
+              WorkingPrecision \[Rule] 
+                wp};  (*Set\ up\ the\ method\ data\ for\ this\ method*) 
+            EventLocator[{fropts, elf, 
+              submdata}]];\)\n (*Accepted\ steps*) \[IndentingNewLine]
+    \(CheckStep[{h_, deltay_}] := {h, deltay, None};\)\n
+    \(CheckStep[{h_, deltay_, yph_}] := {h, deltay, yph};\)\n
+    \(CheckStep[{h_, deltay_, yph_, _}] := {h, deltay, yph} /; 
+          UnsameQ[deltay, $Failed];\)\n (*Rejected\ steps\
+*) \[IndentingNewLine]
+    \(CheckStep[data_] := Throw[data];\)\n
+    \(\(EventLocator[{fropts_, elf_, submtd_}]\)["\<Step\>"[f_, t0_, h0_, 
+            y0_, yp0_]] := 
+        Block[{data, h, s1, s2, ydelta, yp}, s1 = elf[t0, y0]; 
+          data = submtd["\<Step\>"[f, t0, h0, y0, yp0]]; {h, ydelta, yp} = 
+            CheckStep[data]; s2 = elf[t0 + h0, y0 + ydelta]; 
+          If[UnsameQ[Sign[s1], Sign[s2]], 
+            LocateEvent[submtd, elf, f, t0, h0, y0, yp0, fropts]]; {h, 
+            ydelta, yp}];\)\n
+    \(LocateEvent[submtd_, elf_, f_, t0_, h0_, y0_, yp0_, {fropts__}] := 
+        Catch[Block[{data, h, hnew, ydelta, yp}, {h} = 
+              FindRoot[\((data = 
+                      submtd["\<Step\>"[f, t0, #, y0, yp0]]; {hnew, ydelta, 
+                        yp} = CheckStep[data]; 
+                    elf[t0 + #, y0 + ydelta])\) &, {0, h0}, fropts]; 
+            Sow[{t0 + h, y0 + ydelta}];]];\)\[IndentingNewLine]
+    \(Format[x[k_]] = Subscript[x, k];\)\[IndentingNewLine]
+    \(Format[y[k_]] = Subscript[y, k];\)\[IndentingNewLine]
+    \(Format[v[k_]] = Subscript[v, k];\)\[IndentingNewLine]
+    \(Format[w[k_]] = Subscript[w, k];\)\[IndentingNewLine]
+    \(Format[g[k_]] = Subscript[g, k];\)\[IndentingNewLine]
+    ClearAll[i, k, j, l, m, n]\[IndentingNewLine]
+    \(nc = 3;\)\[IndentingNewLine]
+    \(P = 2  \[Pi];\)\[IndentingNewLine]
+    XT = Flatten[
+        Table[{\(x[i]\)[T], \(v[i]\)[T], \(y[i]\)[T], \(w[i]\)[T]}, {i, 2, 
+            nc}]]\[IndentingNewLine]
+    \(XO = 
+        Flatten[Table[{\(x[i]\)[0], \(v[i]\)[0], \(y[i]\)[0], \(w[i]\)[
+                0]}, {i, 2, nc}]];\)\[IndentingNewLine]
+    \(\(FV[1]\)[T_] = \(v[2]\)[T];\)\[IndentingNewLine]
+    \(\(FV[2]\)[
+          T_] = \(-\(\(\[Sum]\+\(i = 2\)\%nc\( x[i]\)[T] + \(x[2]\)[
+                    T]\)\/\((\@\(\(\((\[Sum]\+\(i = 2\)\%nc\( x[i]\)[T] + \
+\(x[2]\)[T])\)\^2\)\(+\)\(\((\[Sum]\+\(i = 2\)\%nc\( y[i]\)[T] + \(y[2]\)[T])\
+\)\^2\)\(\ \)\))\)\^3\)\) + \[Sum]\+\(i = 3\)\%nc\(\( x[i]\)[T] - \(x[2]\)[T]\
+\)\/\((\@\(\((\(x[i]\)[T] - \(x[2]\)[T])\)\^2 + \((\(y[i]\)[T] - \(y[2]\)[T])\
+\)\^2\))\)\^3;\)\[IndentingNewLine]
+    \(\(FV[3]\)[T_] = \(w[2]\)[T];\)\[IndentingNewLine]
+    \(\(FV[4]\)[
+          T_] = \(-\(\(\[Sum]\+\(i = 2\)\%nc\( y[i]\)[T] + \(y[2]\)[
+                    T]\)\/\((\@\(\(\((\[Sum]\+\(i = 2\)\%nc\( x[i]\)[T] + \
+\(x[2]\)[T])\)\^2\)\(+\)\(\((\[Sum]\+\(i = 2\)\%nc\( y[i]\)[T] + \(y[2]\)[T])\
+\)\^2\)\(\ \)\))\)\^3\)\) + \[Sum]\+\(i = 3\)\%nc\(\( y[i]\)[T] - \(y[2]\)[T]\
+\)\/\((\@\(\((\(x[i]\)[T] - \(x[2]\)[T])\)\^2 + \((\(y[i]\)[T] - \(y[2]\)[T])\
+\)\^2\))\)\^3;\)\[IndentingNewLine]
+    \(k = 3;\)\[IndentingNewLine]
+    \(For[i = 5, i \[LessEqual] \ 4\ nc - 4, 
+        i = i + 4, \(FV[i]\)[T_] = \(v[k]\)[
+            T]; \[IndentingNewLine]\(FV[i + 1]\)[
+            T_] = \(-\(\(\[Sum]\+\(j = 2\)\%nc\( x[j]\)[T] + \(x[k]\)[
+                      T]\)\/\((\@\(\((\[Sum]\+\(j = 2\)\%nc\( x[j]\)[T] + \
+\(x[k]\)[T])\)\^2 + \((\[Sum]\+\(j = 2\)\%nc\( y[j]\)[T] + \
+\(y[k]\)[T])\)\^2\))\)\^3\)\) + \[Sum]\+\(j = 2\)\%\(k - 1\)\(\(x[j]\)[T] - \
+\(x[k]\)[T]\)\/\((\@\(\((\(x[j]\)[T] - \(x[k]\)[T])\)\^2 + \((\(y[j]\)[T] - \
+\(y[k]\)[T])\)\^2\))\)\^3 + \[Sum]\+\(j = k + 1\)\%nc\(\( x[j]\)[T] - \
+\(x[k]\)[T]\)\/\((\@\(\((\(x[j]\)[T] - \(x[k]\)[T])\)\^2 + \((\(y[j]\)[T] - \
+\(y[k]\)[T])\)\^2\))\)\^3; \[IndentingNewLine]\(FV[i + 2]\)[T_] = \(w[k]\)[
+            T]; \[IndentingNewLine]\(FV[i + 3]\)[
+            T_] = \(-\(\(\[Sum]\+\(j = 2\)\%nc\( y[j]\)[T] + \(y[k]\)[
+                      T]\)\/\((\@\(\((\[Sum]\+\(j = 2\)\%nc\( x[j]\)[T] + \
+\(x[k]\)[T])\)\^2 + \((\[Sum]\+\(j = 2\)\%nc\( y[j]\)[T] + \
+\(y[k]\)[T])\)\^2\))\)\^3\)\) + \[Sum]\+\(j = 2\)\%\(k - 1\)\(\(y[j]\)[T] - \
+\(y[k]\)[T]\)\/\((\@\(\((\(x[j]\)[T] - \(x[k]\)[T])\)\^2 + \((\(y[j]\)[T] - \
+\(y[k]\)[T])\)\^2\))\)\^3 + \[Sum]\+\(j = k + 1\)\%nc\(\( y[j]\)[T] - \
+\(y[k]\)[T]\)\/\((\@\(\((\(x[j]\)[T] - \(x[k]\)[T])\)\^2 + \((\(y[j]\)[T] - \
+\(y[k]\)[T])\)\^2\))\)\^3; k = k + 1];\)\[IndentingNewLine]
+    \(s1 = 
+        Flatten[Table[
+            D[XT[\([i]\)], {T, 1}] \[Equal] \(FV[i]\)[T], {i, 1, 
+              4\ nc - 4}]];\)\[IndentingNewLine]
+    \(XIR = 
+        List[\(-0.995491884864989341170370887450773578918346391374`30. \)\
+\[InvisibleSpace], 
+          0.347901964762889552522416841201573680488296135412`30. , \
+\(-4.03443268557852851305581955286097849971040782865`29.999999999999996*^-10\)\
+, 0.533929813520146414226422411225153785698755563477`30. , 
+          0.995491884864809101741978134642227531237950082465`30. \
+\[InvisibleSpace], 0.347901964763543025276613500253839561954647943107`30. , 
+          4.03166652688620211524398593088254700717711018919`30.*^-10, 
+          0.533929813520146414226687153517709631839514097568`30. ];\)\
+\[IndentingNewLine]
+    \(inicond = 
+        Flatten[Table[
+            XO[\([k]\)] \[Equal] SetPrecision[XIR[\([k]\)], 30], {k, 1, 
+              4\ nc - 4}]];\)\[IndentingNewLine]
+    ClearAll[m]\[IndentingNewLine]
+    vars = 
+      Flatten[Table[{\(x[m]\)[T], \(v[m]\)[T], \(y[m]\)[T], \(w[m]\)[T]}, {m, 
+            2, nc}]]\[IndentingNewLine]
+    system = 
+      Join[List[s1], List[inicond], List[XT], List[{T, 0, P}], List[{}], 
+        List[{\[Sum]\+\(i = 1\)\%nc\@\(\( x[i]'\)[T]\^2 + \(y[i]'\)[T]\^2\) - \
+\[Sum]\+\(i = 1\)\%nc\(\[Sum]\+\(j = i + 1\)\%nc 1\/\@\(\((\(x[i]\)[T] - \
+\(x[j]\)[T])\)\^2 + \((\(y[i]\)[T] - \(y[j]\)[T])\)\^2\)\)}]]\
+\[IndentingNewLine]
+    tdata = {T, 10000, 10000}\n
+    \(mtd = {"\<FixedStep\>", 
+          Method \[Rule] {"\<ExplicitRungeKutta\>", "\<DifferenceOrder\>" \
+\[Rule] 4}};\)\n
+    data = 
+      ReapData[Reap[\(NDSolve[system, tdata, 
+              Method \[Rule] {EventLocator, Event \[Rule] \(x[2]\)[T], 
+                  Method \[Rule] mtd}, StartingStepSize \[Rule] 1/4, 
+              MaxSteps \[Rule] Infinity];\)]]\n
+    \(psdata = Part[data, All, 2, {3, 4}];\)\n
+    \(ListPlot[psdata, Axes \[Rule] False, Frame \[Rule] True, 
+        AspectRatio \[Rule] 1];\)\[IndentingNewLine]
+    \)\)\)], "Input"],
+
+Cell[BoxData[
+    \({x\_2[T], v\_2[T], y\_2[T], w\_2[T], x\_3[T], v\_3[T], y\_3[T], 
+      w\_3[T]}\)], "Output"],
+
+Cell[BoxData[
+    \({x\_2[T], v\_2[T], y\_2[T], w\_2[T], x\_3[T], v\_3[T], y\_3[T], 
+      w\_3[T]}\)], "Output"],
+
+Cell[BoxData[
+    RowBox[{"{", 
+      RowBox[{
+        RowBox[{"{", 
+          RowBox[{
+            RowBox[{
+              RowBox[{
+                SuperscriptBox[\(x\_2\), "\[Prime]",
+                  MultilineFunction->None], "[", "T", "]"}], 
+              "\[Equal]", \(v\_2[T]\)}], ",", 
+            RowBox[{
+              RowBox[{
+                SuperscriptBox[\(v\_2\), "\[Prime]",
+                  MultilineFunction->None], "[", "T", "]"}], 
+              "\[Equal]", \(\(\(-x\_2[T]\) + x\_3[T]\)\/\((\((\(-x\_2[T]\) + \
+x\_3[T])\)\^2 + \((\(-y\_2[T]\) + y\_3[T])\)\^2)\)\^\(3/2\) - \(2\ x\_2[T] + \
+x\_3[T]\)\/\((\((2\ x\_2[T] + x\_3[T])\)\^2 + \((2\ y\_2[T] + \
+y\_3[T])\)\^2)\)\^\(3/2\)\)}], ",", 
+            RowBox[{
+              RowBox[{
+                SuperscriptBox[\(y\_2\), "\[Prime]",
+                  MultilineFunction->None], "[", "T", "]"}], 
+              "\[Equal]", \(w\_2[T]\)}], ",", 
+            RowBox[{
+              RowBox[{
+                SuperscriptBox[\(w\_2\), "\[Prime]",
+                  MultilineFunction->None], "[", "T", "]"}], 
+              "\[Equal]", \(\(\(-y\_2[T]\) + y\_3[T]\)\/\((\((\(-x\_2[T]\) + \
+x\_3[T])\)\^2 + \((\(-y\_2[T]\) + y\_3[T])\)\^2)\)\^\(3/2\) - \(2\ y\_2[T] + \
+y\_3[T]\)\/\((\((2\ x\_2[T] + x\_3[T])\)\^2 + \((2\ y\_2[T] + \
+y\_3[T])\)\^2)\)\^\(3/2\)\)}], ",", 
+            RowBox[{
+              RowBox[{
+                SuperscriptBox[\(x\_3\), "\[Prime]",
+                  MultilineFunction->None], "[", "T", "]"}], 
+              "\[Equal]", \(v\_3[T]\)}], ",", 
+            RowBox[{
+              RowBox[{
+                SuperscriptBox[\(v\_3\), "\[Prime]",
+                  MultilineFunction->None], "[", "T", "]"}], 
+              "\[Equal]", \(\(x\_2[T] - x\_3[T]\)\/\((\((x\_2[T] - x\_3[T])\)\
+\^2 + \((y\_2[T] - y\_3[T])\)\^2)\)\^\(3/2\) - \(x\_2[T] + 2\ \
+x\_3[T]\)\/\((\((x\_2[T] + 2\ x\_3[T])\)\^2 + \((y\_2[T] + 2\ \
+y\_3[T])\)\^2)\)\^\(3/2\)\)}], ",", 
+            RowBox[{
+              RowBox[{
+                SuperscriptBox[\(y\_3\), "\[Prime]",
+                  MultilineFunction->None], "[", "T", "]"}], 
+              "\[Equal]", \(w\_3[T]\)}], ",", 
+            RowBox[{
+              RowBox[{
+                SuperscriptBox[\(w\_3\), "\[Prime]",
+                  MultilineFunction->None], "[", "T", "]"}], 
+              "\[Equal]", \(\(y\_2[T] - y\_3[T]\)\/\((\((x\_2[T] - x\_3[T])\)\
+\^2 + \((y\_2[T] - y\_3[T])\)\^2)\)\^\(3/2\) - \(y\_2[T] + 2\ \
+y\_3[T]\)\/\((\((x\_2[T] + 2\ x\_3[T])\)\^2 + \((y\_2[T] + 2\ \
+y\_3[T])\)\^2)\)\^\(3/2\)\)}]}], "}"}], 
+        ",", \({x\_2[
+              0] \[Equal] \
+\(-0.995491884864989341170370887450773578918346391374`30. \), 
+          v\_2[0] \[Equal] 
+            0.347901964762889552522416841201573680488296135412`30. , 
+          y\_2[0] \[Equal] \
+\(-4.03443268557852851305581955286097849971040782865`29.999999999999996*^-10\)\
+, w\_2[0] \[Equal] 0.533929813520146414226422411225153785698755563477`30. , 
+          x\_3[0] \[Equal] 
+            0.995491884864809101741978134642227531237950082465`30. , 
+          v\_3[0] \[Equal] 
+            0.347901964763543025276613500253839561954647943107`30. , 
+          y\_3[0] \[Equal] 
+            4.03166652688620211524398593088254700717711018919`30.*^-10, 
+          w\_3[0] \[Equal] 
+            0.533929813520146414226687153517709631839514097568`30. }\), 
+        ",", \({x\_2[T], v\_2[T], y\_2[T], w\_2[T], x\_3[T], v\_3[T], 
+          y\_3[T], w\_3[T]}\), ",", \({t, 0, 2\ \[Pi]}\), ",", \({}\), ",", 
+        RowBox[{"{", 
+          
+          RowBox[{\(-\(1\/\@\(\((x\_1[T] - x\_2[T])\)\^2 + \((y\_1[T] - \
+y\_2[T])\)\^2\)\)\), 
+            "-", \(1\/\@\(\((x\_1[T] - x\_3[T])\)\^2 + \((y\_1[T] - \
+y\_3[T])\)\^2\)\), 
+            "-", \(1\/\@\(\((x\_2[T] - x\_3[T])\)\^2 + \((y\_2[T] - \
+y\_3[T])\)\^2\)\), "+", 
+            SqrtBox[
+              RowBox[{
+                SuperscriptBox[
+                  RowBox[{
+                    SuperscriptBox[\(x\_1\), "\[Prime]",
+                      MultilineFunction->None], "[", "T", "]"}], "2"], "+", 
+                SuperscriptBox[
+                  RowBox[{
+                    SuperscriptBox[\(y\_1\), "\[Prime]",
+                      MultilineFunction->None], "[", "T", "]"}], "2"]}]], "+",
+             
+            SqrtBox[
+              RowBox[{
+                SuperscriptBox[
+                  RowBox[{
+                    SuperscriptBox[\(x\_2\), "\[Prime]",
+                      MultilineFunction->None], "[", "T", "]"}], "2"], "+", 
+                SuperscriptBox[
+                  RowBox[{
+                    SuperscriptBox[\(y\_2\), "\[Prime]",
+                      MultilineFunction->None], "[", "T", "]"}], "2"]}]], "+",
+             
+            SqrtBox[
+              RowBox[{
+                SuperscriptBox[
+                  RowBox[{
+                    SuperscriptBox[\(x\_3\), "\[Prime]",
+                      MultilineFunction->None], "[", "T", "]"}], "2"], "+", 
+                SuperscriptBox[
+                  RowBox[{
+                    SuperscriptBox[\(y\_3\), "\[Prime]",
+                      MultilineFunction->None], "[", "T", "]"}], "2"]}]]}], 
+          "}"}]}], "}"}]], "Output"],
+
+Cell[BoxData[
+    \({T, 10000, 10000}\)], "Output"],
+
+Cell[BoxData[
+    RowBox[{\(NDSolve::"dsvar"\), \(\(:\)\(\ \)\), "\<\"\\!\\(Method \[Rule] \
+\\(\\({EventLocator, \\(\\(Event \[Rule] \\(\\(x\\_2[T]\\)\\)\\)\\), \
+\\(\\(Method \[Rule] \\(\\({\\\"FixedStep\\\", \\(\\(Method \[Rule] \\(\\({\\\
+\"ExplicitRungeKutta\\\", \\(\\(\\\"DifferenceOrder\\\" \[Rule] \
+4\\)\\)}\\)\\)\\)\\)}\\)\\)\\)\\)}\\)\\)\\) cannot be used as a variable. \\!\
+\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"NDSolve::dsvar\\\"]\\)\"\>"}]], "Message"],
+
+Cell[BoxData[
+    \({}\)], "Output"],
+
+Cell[BoxData[
+    RowBox[{\(ListPlot::"lpn"\), \(\(:\)\(\ \)\), "\<\"\\!\\({}\\) is not a \
+list of numbers or pairs of numbers. \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\
+\", ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"ListPlot::lpn\\\"]\\)\"\>"}]], "Message"],
+
+Cell[BoxData[
+    RowBox[{\(NDSolve::"dsvar"\), \(\(:\)\(\ \)\), 
+      "\"\<Method\[Rule]{EventLocator,Event\[Rule]\!\(x\_2\)[T],Method\[Rule]{\
+\>\"", "FixedStep", "\"\<,Method\[Rule]{\>\"", "ExplicitRungeKutta", 
+      "\"\<,\>\"", "DifferenceOrder", 
+      "\"\<\[Rule]4}}} cannot be used as a variable. \!\(
+\*ButtonBox[\(More\[Ellipsis]\),
+ButtonData:>"NDSolve::dsvar",
+ButtonStyle->"RefGuideLinkText",
+ButtonFrame->"None"]\)\>\""}]], "Message",
+  GeneratedCell->False,
+  CellAutoOverwrite->False],
+
+Cell[BoxData[
+    \({}\)], "Output"],
+
+Cell[BoxData[
+    RowBox[{\(ListPlot::"lpn"\), \(\(:\)\(\ \)\), "\<\"\\!\\({}\\) is not a \
+list of numbers or pairs of numbers. \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\
+\", ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"ListPlot::lpn\\\"]\\)\"\>"}]], "Message"]
+}, Open  ]]
+},
+FrontEndVersion->"5.0 for Microsoft Windows",
+ScreenRectangle->{{0, 1152}, {0, 777}},
+WindowSize->{1039, 619},
+WindowMargins->{{Automatic, -1}, {Automatic, -13}}
+]
+
+(*******************************************************************
+Cached data follows.  If you edit this Notebook file directly, not
+using Mathematica, you must remove the line containing CacheID at
+the top of  the file.  The cache data will then be recreated when
+you save this file from within Mathematica.
+*******************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[1776, 53, 9131, 165, 1940, "Input"],
+Cell[10910, 220, 113, 2, 29, "Output"],
+Cell[11026, 224, 113, 2, 29, "Output"],
+Cell[11142, 228, 5173, 115, 296, "Output"],
+Cell[16318, 345, 51, 1, 29, "Output"],
+Cell[16372, 348, 549, 8, 37, "Message"],
+Cell[16924, 358, 36, 1, 29, "Output"],
+Cell[16963, 361, 292, 4, 22, "Message"],
+Cell[17258, 367, 503, 11, 37, "Message"],
+Cell[17764, 380, 36, 1, 29, "Output"],
+Cell[17803, 383, 292, 4, 22, "Message"]
+}, Open  ]]
+}
+]
+*)
+
+
+
+(*******************************************************************
+End of Mathematica Notebook file.
+*******************************************************************)
+
