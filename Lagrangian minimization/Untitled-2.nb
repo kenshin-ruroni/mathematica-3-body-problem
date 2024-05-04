@@ -1,0 +1,121 @@
+(************** Content-type: application/mathematica **************
+                     CreatedBy='Mathematica 5.0'
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used with any Mathematica-compatible
+application, such as Mathematica, MathReader or Publicon. The data
+for the notebook starts with the line containing stars above.
+
+To get the notebook into a Mathematica-compatible application, do
+one of the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the
+  application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing
+the word CacheID, otherwise Mathematica-compatible applications may
+try to use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+*******************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[      3686,         87]*)
+(*NotebookOutlinePosition[      4329,        109]*)
+(*  CellTagsIndexPosition[      4285,        105]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+Cell[BoxData[{
+    \(\(Clear[x, y, v, w, system, inicond, sol, t, 
+        k];\)\), "\[IndentingNewLine]", 
+    \(inicond = 
+      Flatten[Table[
+          XO[\([k]\)] \[Equal] SetPrecision[WW[\([k]\)], 30], {k, 1, 
+            4\ nc - 4}]]; 
+    Print[MatrixForm[inicond]];\), "\[IndentingNewLine]", 
+    \(\(system = Join[s1, inicond];\)\), "\[IndentingNewLine]", 
+    \(\(sol = 
+        NDSolve[system, XV, {t, 0, 4\ P}, MaxSteps \[Rule] \ 400000, 
+          AccuracyGoal \[Rule] \ 25, PrecisionGoal \[Rule] \ 25, 
+          WorkingPrecision \[Rule] \ 30];\)\), "\[IndentingNewLine]", 
+    \(pp = 
+      ParametricPlot[{Evaluate[{\(-\(x[2]\)[t]\) - \(x[3]\)[
+                    t], \(-\(y[2]\)[t]\) - \(y[3]\)[t]} /. Flatten[sol]], 
+          Evaluate[{\(x[2]\)[t], \(y[2]\)[t]} /. Flatten[sol]], 
+          Evaluate[{\(x[3]\)[t], \(y[3]\)[t]} /. Flatten[sol]]}, {t, 0, 
+          4\ P}, AspectRatio \[Rule] \ Automatic, PlotPoints \[Rule] 30000, 
+        DisplayFunction \[Rule] Identity]; 
+    Show[pp, Graphics[lspt, AspectRatio \[Rule] \ Automatic], 
+      DisplayFunction \[Rule] \ $DisplayFunction];\), "\[IndentingNewLine]", 
+    \(Evaluate[{\(x[2]\)[4\ P] - \(x[2]\)[0], \(y[2]\)[4\ P] - \(y[2]\)[0]} /. 
+        Flatten[sol]]\), "\[IndentingNewLine]", 
+    \(Evaluate[{\(x[3]\)[4\ P] - \(x[3]\)[0], \(y[3]\)[4\ P] - \(y[3]\)[0]} /. 
+        Flatten[sol]]\), "\[IndentingNewLine]", 
+    \(GH = GG - SH; Print["\<D\[EAcute]terminant \>", Det[GH]]; 
+    Print["\<Rang \>", MatrixRank[GH], "\< \>", 
+      MatrixRank[GH, Tolerance \[Rule] \ 0]];\), "\[IndentingNewLine]", 
+    \(ST = Dot[SH, TX[0]]; \[CapitalDelta] = TX[c] - ST; 
+    DM = Max[Flatten[Abs[\[CapitalDelta]]]]; 
+    Print["\<Matching conditions  \>", MatrixForm[\[CapitalDelta]], 
+      DM];\), "\[IndentingNewLine]", 
+    \(\(DW = Dot[Inverse[GH], \[CapitalDelta]];\)\), "\[IndentingNewLine]", 
+    \(WW = TX[0] - DW; Print[MatrixForm[WW]]\)}], "Input"]
+},
+FrontEndVersion->"5.0 for Microsoft Windows",
+ScreenRectangle->{{0, 1152}, {0, 765}},
+WindowSize->{990, 547},
+WindowMargins->{{0, Automatic}, {Automatic, 0}}
+]
+
+(*******************************************************************
+Cached data follows.  If you edit this Notebook file directly, not
+using Mathematica, you must remove the line containing CacheID at
+the top of  the file.  The cache data will then be recreated when
+you save this file from within Mathematica.
+*******************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+Cell[1754, 51, 1928, 34, 310, "Input"]
+}
+]
+*)
+
+
+
+(*******************************************************************
+End of Mathematica Notebook file.
+*******************************************************************)
+

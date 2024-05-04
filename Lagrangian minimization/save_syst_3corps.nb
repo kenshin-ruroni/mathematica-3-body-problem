@@ -1,0 +1,176 @@
+(************** Content-type: application/mathematica **************
+                     CreatedBy='Mathematica 5.0'
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used with any Mathematica-compatible
+application, such as Mathematica, MathReader or Publicon. The data
+for the notebook starts with the line containing stars above.
+
+To get the notebook into a Mathematica-compatible application, do
+one of the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the
+  application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing
+the word CacheID, otherwise Mathematica-compatible applications may
+try to use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+*******************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[      6846,        142]*)
+(*NotebookOutlinePosition[      7489,        164]*)
+(*  CellTagsIndexPosition[      7445,        160]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+Cell[BoxData[{
+    \(Print[\(-\(\(z[3]\)[cu, cv, 0]\)[\([1]\)]\)\ Sin[\[Theta]] + \(\(z[3]\)[
+              cu, cv, 0]\)[\([2]\)]\ \ Cos[\[Theta]]]\), \
+"\[IndentingNewLine]", 
+    \(For[k = 1, k \[LessEqual] \ nc, k = k + 1, 
+      u[k] = SetPrecision[
+          Cos[\[Theta]]\ \(\(z[k]\)[cu, cv, 0]\)[\([1]\)] + 
+            Sin[\[Theta]]\ \(\(z[k]\)[cu, cv, 0]\)[\([2]\)], 30]; 
+      u[k + nc] = 
+        SetPrecision[\(-\(\(z[k]\)[cu, cv, 
+                    0]\)[\([1]\)]\)\ Sin[\[Theta]] + \(\(z[k]\)[cu, cv, 
+                  0]\)[\([2]\)]\ \ Cos[\[Theta]], 30]; 
+      u[k + 2\ nc] = 
+        SetPrecision[
+          Cos[\[Theta]]\ \(\(dz[k]\)[cu, cv, 0]\)[\([1]\)] + 
+            Sin[\[Theta]]\ \(\(dz[k]\)[cu, cv, 0]\)[\([2]\)], 30]; 
+      u[k + 3\ nc] = 
+        SetPrecision[\(-\(\(dz[k]\)[cu, cv, 
+                    0]\)[\([1]\)]\)\ Sin[\[Theta]] + \(\(dz[k]\)[cu, cv, 
+                  0]\)[\([2]\)]\ \ Cos[\[Theta]], 
+          30]]\), "\[IndentingNewLine]", 
+    \(\(For[j = 1, j \[LessEqual] \ 1, j = j + 1, 
+        ClearAll[k, i, m, x, y, v, w, ico, eq, system, solution, inicond, t]; 
+        Format[x[k_]] = Subscript[x, k]; Format[y[k_]] = Subscript[y, k]; 
+        Format[v[k_]] = Subscript[v, k]; Format[w[k_]] = Subscript[w, k]; 
+        ico = Join[Table[x[k], {k, 1, nc}], Table[y[k], {k, 1, nc}], 
+            Table[v[k], {k, 1, nc}], Table[w[k], {k, 1, nc}]]; 
+        inicond = 
+          Join[Table[\(x[k]\)[0] \[Equal] SetPrecision[u[k], 30], {k, 1, 
+                nc}], Table[\(y[k]\)[0] \[Equal] 
+                SetPrecision[u[k + nc], 30], {k, 1, nc}], 
+            Table[\(v[k]\)[0] \[Equal] SetPrecision[u[k + 2\ nc], 30], {k, 1, 
+                nc}], Table[\(w[k]\)[0] \[Equal] 
+                SetPrecision[u[k + 3\ nc], 30], {k, 1, nc}]]; Print[inicond]; 
+        Print[\[Sum]\+\(k = 1\)\%nc u[k], "\< \>", \[Sum]\+\(k = 1\)\%nc u[
+              k + nc], "\< \>", \[Sum]\+\(k = 1\)\%nc u[
+              k + 2\ nc], "\< \>", \[Sum]\+\(k = 1\)\%nc u[
+              k + 3\ nc]]; \[IndentingNewLine]eq = 
+          Join[Table[\(x[k]'\)[t] - \(v[k]\)[t] \[Equal] 0, {k, 1, nc}], 
+            Table[\(y[k]'\)[t] - \(w[k]\)[t] \[Equal] 0, {k, 1, nc}], 
+            Table[\ \(v[k]'\)[
+                    t] - \[Sum]\+\(m = 1\)\%\(k - 1\)\((\(x[m]\)[
+                            t] - \(x[k]\)[
+                            t])\)/\((\[Sqrt]\((\((\(x[k]\)[t] - \
+\(x[m]\)[t])\)\^2 + \((\(y[k]\)[t] - \(y[m]\)[t])\)\^2)\))\)\^3 - \[Sum]\+\(m \
+= k + 1\)\%nc\((\(x[m]\)[t] - \(x[k]\)[
+                            t])\)/\((\[Sqrt]\((\((\(x[k]\)[t] - \
+\(x[m]\)[t])\)\^2 + \((\(y[m]\)[t] - \(y[k]\)[t])\)\^2)\))\)\^3 \[Equal] 
+                0, {k, 1, nc}], 
+            Table[\ \(w[k]'\)[
+                    t] - \[Sum]\+\(m = 1\)\%\(k - 1\)\((\(y[m]\)[
+                            t] - \(y[k]\)[
+                            t])\)/\((\[Sqrt]\((\((\(x[k]\)[t] - \
+\(x[m]\)[t])\)\^2 + \((\(y[k]\)[t] - \(y[m]\)[t])\)\^2)\))\)\^3 - \[Sum]\+\(m \
+= k + 1\)\%nc\((\(y[m]\)[t] - \(y[k]\)[
+                            t])\)/\((\[Sqrt]\((\((\(x[k]\)[t] - \
+\(x[m]\)[t])\)\^2 + \((\(y[k]\)[t] - \(y[m]\)[t])\)\^2)\))\)\^3 \[Equal] 
+                0, {k, 1, nc}]]; 
+        system = Join[eq, inicond]; \[IndentingNewLine]solution = 
+          NDSolve[system, ico, {t, 0, P}, MaxSteps \[Rule] \ 200000, 
+            AccuracyGoal \[Rule] \ 20, PrecisionGoal \[Rule] \ 20, 
+            WorkingPrecision \[Rule] \ 30, MaxStepSize \[Rule] \ 0.001]; 
+        Plot[{\(\(zp[1]\)[t]\)[\([1]\)], \(x[1]\)[t] /. 
+              Flatten[solution]}, {t, 0, P}, 
+          PlotDivision \[Rule] \ 
+            30000]; \[IndentingNewLine]Plot[{\(\(zp[1]\)[
+                t]\)[\([2]\)], \(y[1]\)[t] /. Flatten[solution]}, {t, 0, P}, 
+          PlotDivision \[Rule] \ 30000]; \[IndentingNewLine]pt = 
+          ParametricPlot[\(zp[1]\)[t], {t, 0, P}, 
+            DisplayFunction \[Rule] \ Identity]; \[IndentingNewLine]pp = 
+          ParametricPlot[{Evaluate[{\(x[1]\)[t], \(y[1]\)[t]} /. 
+                  Flatten[solution]], 
+              Evaluate[{\(x[2]\)[t], \(y[2]\)[t]} /. Flatten[solution]], 
+              Evaluate[{\(x[3]\)[t], \(y[3]\)[t]} /. Flatten[solution]]}, {t, 
+              0, P}, AspectRatio \[Rule] \ Automatic, 
+            PlotPoints \[Rule] 30000, DisplayFunction \[Rule] Identity]; 
+        lspt = Table[{AbsolutePointSize[10], 
+              Point[{\(x[i]\)[0], \(y[i]\)[0]} /. Flatten[solution]]}, {i, 1, 
+              nc}]; Show[pp, pt, 
+          Graphics[lspt, AspectRatio \[Rule] \ Automatic], 
+          DisplayFunction \[Rule] \ $DisplayFunction]; \[IndentingNewLine]For[
+          i = 1, i \[LessEqual] \ nc, i = i + 1, 
+          u[i] = SetPrecision[Evaluate[\(x[i]\)[P] /. Flatten[solution]], 
+              30]; u[i + nc] = 
+            SetPrecision[Evaluate[\(y[i]\)[P] /. Flatten[solution]], 30]; 
+          u[i + 2\ nc] = 
+            SetPrecision[Evaluate[\(v[i]\)[P] /. Flatten[solution]], 30]; 
+          u[i + 3\ nc] = 
+            SetPrecision[Evaluate[\(w[i]\)[P] /. Flatten[solution]], 
+              30]]];\)\)}], "Input"]
+},
+FrontEndVersion->"5.0 for Microsoft Windows",
+ScreenRectangle->{{0, 1152}, {0, 765}},
+WindowSize->{488, 597},
+WindowMargins->{{0, Automatic}, {Automatic, 0}}
+]
+
+(*******************************************************************
+Cached data follows.  If you edit this Notebook file directly, not
+using Mathematica, you must remove the line containing CacheID at
+the top of  the file.  The cache data will then be recreated when
+you save this file from within Mathematica.
+*******************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+Cell[1754, 51, 5088, 89, 1910, "Input"]
+}
+]
+*)
+
+
+
+(*******************************************************************
+End of Mathematica Notebook file.
+*******************************************************************)
+

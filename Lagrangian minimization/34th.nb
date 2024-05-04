@@ -1,0 +1,440 @@
+(************** Content-type: application/mathematica **************
+                     CreatedBy='Mathematica 5.0'
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used with any Mathematica-compatible
+application, such as Mathematica, MathReader or Publicon. The data
+for the notebook starts with the line containing stars above.
+
+To get the notebook into a Mathematica-compatible application, do
+one of the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the
+  application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing
+the word CacheID, otherwise Mathematica-compatible applications may
+try to use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+*******************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[     19557,        396]*)
+(*NotebookOutlinePosition[     20224,        419]*)
+(*  CellTagsIndexPosition[     20180,        415]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[{
+    \(ClearAll[a, b, uu, vv, u, v, cu, cv, c, d, dc, z, zz, tt, e, g, LS, 
+      TLS, hu, hv, x, r]\), "\[IndentingNewLine]", 
+    \(\(n = 30;\)\), "\[IndentingNewLine]", 
+    \(\(nc = 3;\)\), "\[IndentingNewLine]", 
+    \(\(P = 2\ \[Pi];\)\), "\[IndentingNewLine]", 
+    \(PP = \(2\ \[Pi]\)\/P\), "\[IndentingNewLine]", 
+    \(\(a = 0;\)\), "\[IndentingNewLine]", 
+    \(\(b = P\/nc;\)\), "\[IndentingNewLine]", 
+    \(\(m = 30;\)\), "\[IndentingNewLine]", 
+    \(\(npt = nc\ m;\)\), "\[IndentingNewLine]", 
+    \(\(h = P\/npt;\)\), "\[IndentingNewLine]", 
+    \(\[Tau][i_] := SetPrecision[h\ i, 30]\), "\[IndentingNewLine]", 
+    \(\(xo = 
+        SetPrecision[
+          List[\(-1.08455435797762054454370912006235544467665806387`29.\
+999999999999773\), \
+\(-0.048362167810233010778983754169097251529910497736`29.99999999999997\), 
+            0, \(-0.007988379831560909702253066492245973693005703479`29.\
+999999999999847\), 
+            0.025016338138287975751775495028907612955020053758`29.\
+999999999999954, 0, 
+            0.005789205956199583042504769889381987246526073076`29.\
+999999999999915, 
+            0.000428843611479931091249619626245578906164982996`29.\
+999999999999687, 0, 
+            0.000115030928418100545588652049529577035422345399`29.\
+99999999999989, \
+\(-0.000416849452850571199883217342951451733835930165`29.999999999999698\), 
+            0, \(-0.000121131056018342604712754634455004815916264155`29.\
+999999999999734\), \
+\(-9.695443822527086797688977973552459370966876`29.99999999999981*^-6\), 
+            0, \(-2.959825782826113094544312010258271310312363`29.\
+999999999999638*^-6\), 
+            0.000011304926639657910880179166052882949776373735`29.\
+999999999999957, 0, 
+            3.563504930743075488561208321795669699641539`29.99999999999983*^-\
+6, 2.93955356518252089214034282094032325524115`29.99999999999969*^-7, 0, 
+            9.4884207713068478752090214722900176799192`29.999999999999627*^-8,\
+ \(-3.71639257589575285586254761282381771049902`29.999999999999634*^-7\), 
+            0, \(-1.22032407786698398603328341900222584186034`29.\
+99999999999996*^-7\), \(-1.023404972251279376436766210064551906908`30.*^-8\), 
+            0, \(-3.409717196658535633015677250574901436591`30.*^-9\), 
+            1.3534960335338923472259667105144677447115`30.*^-8, 0, 
+            0.157135474553668689902990122701794587542827783764`29.\
+999999999999964, \
+\(-0.333797317307359335431979816605098487703537902366`29.999999999999787\), 
+            0, \(-0.055136067677327278323305759372563345985286504206`29.\
+999999999999684\), \
+\(-0.003624487916202715999334827095545884502367287198`29.99999999999972\), 
+            0, \(-0.000838768124921489115894571501774100146332164489`29.\
+999999999999776\), 
+            0.002959893105248976576330972810625130879686858628`29.\
+99999999999974, 0, 
+            0.000793947357033349758713621034946053100792566064`29.\
+99999999999993, 
+            0.000060395162408689616636399856014649782162160615`29.\
+999999999999886, 0, 
+            0.000017550052545194098491430389903786526675375332`29.\
+99999999999989, \
+\(-0.000066918281057276002004628364169830493443692073`29.999999999999975\), 
+            0, \(-0.000020428817622094659538190212825956912632430064`29.\
+999999999999915\), \
+\(-1.637912382400106921281448248099789023632524`29.999999999999837*^-6\), 
+            0, \(-5.16297808632622293443170872654024351437801`29.\
+999999999999762*^-7\), 
+            2.028889809054381673962005605114530062384629`29.999999999999943*^-\
+6, 0, 6.5489400958400263578772747508601784654014`29.999999999999634*^-7, 
+            5.3844890922789923730487502570312704550399`30.*^-8, 0, 
+            1.7680644742028504597364559801152205757393`30.*^-8, \
+\(-7.0635757185362218930179473651190289624096`29.999999999999876*^-8\), 
+            0, \(-2.3533983366218160269596256070333290886462`30.*^-8\), \
+\(-1.961010438994822957285985241271324458793103471932`30.*^-9\), 0], 
+          30];\)\), "\[IndentingNewLine]", 
+    \(\(cu = 
+        Table[SetPrecision[xo[\([i]\)], 30], {i, 1, \ 
+            n}];\)\), "\[IndentingNewLine]", 
+    \(\(cv = 
+        Table[SetPrecision[xo[\([i]\)], 30], {i, n + 1, \ 
+            2  n}];\)\), "\[IndentingNewLine]", 
+    \(\(ff[t_] = 
+        Table[Sin[PP\ k\ \ t], {k, 1, n}];\)\), "\[IndentingNewLine]", 
+    \(\(\(z[i_]\)[u_List, v_List, t_] := 
+        List[Dot[u, ff[t + \((i - 1)\)\ b]], 
+          Dot[v, ff[t + \((i - 1)\)\ b]]];\)\), "\[IndentingNewLine]", 
+    \(xt[t_] := SetPrecision[Dot[cu, ff[t]], 30]\), "\[IndentingNewLine]", 
+    \(yt[t_] := SetPrecision[Dot[cv, ff[t]], 30]\), "\[IndentingNewLine]", 
+    \(Print[xt[0], "\< \>", xt[50\ P]]\), "\[IndentingNewLine]", 
+    \(Print[yt[0], "\< \>", yt[50\ P]]\), "\[IndentingNewLine]", 
+    \(\(dff[t_] = D[ff[t], t];\)\), "\[IndentingNewLine]", 
+    \(\(\(dz[i_]\)[u_List, v_List, t_] := 
+        List[Dot[u, dff[t - \((i - 1)\)\ b]], 
+          Dot[v\ , dff[t - \((i - 1)\)\ b]]];\)\), "\[IndentingNewLine]", 
+    \(\(LS[u_List, v_List, t_] := 
+        1\/2\ \(\[Sum]\+\(i = 1\)\%nc Dot[
+                List[Dot[u, dff[t - \((i - 1)\)\ b]], 
+                  Dot[v\ , dff[t - \((i - 1)\)\ b]]], 
+                List[Dot[u, dff[t - \((i - 1)\)\ b]], 
+                  Dot[v\ , 
+                    dff[t - \((i - 
+                              1)\)\ b]]]]\) + \[Sum]\+\(i = 1\)\%nc\(\[Sum]\+\
+\(j = i + 1\)\%nc\ \ 1/
+                Dot[\((List[Dot[u, ff[t - \((i - 1)\)\ b]], 
+                          Dot[v, ff[t - \((i - 1)\)\ b]]] - 
+                        List[Dot[u, ff[t - \((j - 1)\)\ b]], 
+                          Dot[v, ff[t - \((j - 1)\)\ b]]])\), \((List[
+                          Dot[u, ff[t - \((i - 1)\)\ b]], 
+                          Dot[v, ff[t - \((i - 1)\)\ b]]] - 
+                        List[Dot[u, ff[t - \((j - 1)\)\ b]], 
+                          Dot[v, 
+                            ff[t - \((j - 
+                                      1)\)\ b]]])\)]^ .5\);\)\), "\
+\[IndentingNewLine]", 
+    \(\(\(TKE[u_List, v_List, t_] := 
+        1\/2\ \(\[Sum]\+\(i = 1\)\%nc Dot[
+              List[Dot[u, dff[t - \((i - 1)\)\ b]], 
+                Dot[v\ , dff[t - \((i - 1)\)\ b]]], 
+              List[Dot[u, dff[t - \((i - 1)\)\ b]], 
+                Dot[v\ , 
+                  dff[t - \((i - 1)\)\ b]]]]\);\)\(\[IndentingNewLine]\)
+    \)\), "\[IndentingNewLine]", 
+    \(TPE[u_List, v_List, 
+        t_] := \(\(\[Sum]\+\(i = 1\)\%nc\)\(\[Sum]\+\(j = i + 1\)\%nc\ \ 1/
+            Dot[\((List[Dot[u, ff[t - \((i - 1)\)\ b]], 
+                      Dot[v, ff[t - \((i - 1)\)\ b]]] - 
+                    List[Dot[u, ff[t - \((j - 1)\)\ b]], 
+                      Dot[v, ff[t - \((j - 1)\)\ b]]])\), \((List[
+                      Dot[u, ff[t - \((i - 1)\)\ b]], 
+                      Dot[v, ff[t - \((i - 1)\)\ b]]] - 
+                    List[Dot[u, ff[t - \((j - 1)\)\ b]], 
+                      Dot[v, ff[
+                          t - \((j - 
+                                  1)\)\ b]]])\)]^ .5\)\(\ \)\)\), "\
+\[IndentingNewLine]", 
+    \(TLS[u_List, v_List] := 
+      h\/2\ \(\[Sum]\+\(k = 0\)\%\(m - 1\)\((LS[u, v, \[Tau][k]] + 
+              LS[u, v, \[Tau][k + 1]])\)\)\), "\[IndentingNewLine]", 
+    \(SetPrecision[PA = TLS[cu, cv], 30]; 
+    SetPrecision[PA, 30];\), "\[IndentingNewLine]", 
+    \(\(Plot[\((TKE[cu, cv, t] - TPE[cu, cv, t])\), {t, 0, b}, 
+        PlotLabel \[Rule] \ "\<Total Energy versus time\>", 
+        PlotDivision \[Rule] 30000];\)\), "\[IndentingNewLine]", 
+    \(Print["\< path action : \>", SetPrecision[PA, 30], "\<   \>", 
+      SetPrecision[
+        NIntegrate[LS[cu, cv, t], {t, a, b}, AccuracyGoal \[Rule] 20, 
+          WorkingPrecision \[Rule] 20], 30]]\), "\[IndentingNewLine]", 
+    \(\[Theta] = 
+      ArcTan[\(\(z[3]\)[cu, cv, 0]\)[\([2]\)]\/\(\(z[3]\)[cu, cv, \
+0]\)[\([1]\)]]\), "\[IndentingNewLine]", 
+    \(RR[\[Theta]_] = 
+      List[{Cos[\[Theta]], Sin[\[Theta]]}, {\(-Sin[\[Theta]]\), 
+          Cos[\[Theta]]}]\), "\[IndentingNewLine]", 
+    \(\(zp[k_]\)[t_] := 
+      Dot[RR[\[Theta]], \(z[k]\)[cu, cv, t]]\), "\[IndentingNewLine]", 
+    \(\(dzp[k_]\)[t_] := 
+      Dot[RR[\[Theta]], \ \(dz[k]\)[cu, cv, t]]\), "\[IndentingNewLine]", 
+    \(\(lspt = 
+        Table[Point[\(zp[i]\)[0]], {i, 1, nc}];\)\), "\[IndentingNewLine]", 
+    \(pt = 
+      ParametricPlot[\(zp[1]\)[t], {t, a, P}, PlotPoints \[Rule] 25000, 
+        AspectRatio \[Rule] \ Automatic, 
+        DisplayFunction \[Rule] Identity]\), "\[IndentingNewLine]", 
+    \(\(Show[pt, Graphics[{AbsolutePointSize[10], lspt}], 
+        AspectRatio \[Rule] \ Automatic, 
+        PlotLabel \[Rule] "\<Starting Path\>", 
+        DisplayFunction \[Rule] \ $DisplayFunction];\)\), \
+"\[IndentingNewLine]", 
+    \(ClearAll[k, i, j, m, x, y, v, w, ico, eq, system, solution, inicond, t, 
+      g, \[Tau]]\), "\[IndentingNewLine]", 
+    \(\(Format[x[k_]] = Subscript[x, k];\)\), "\[IndentingNewLine]", 
+    \(\(Format[y[k_]] = Subscript[y, k];\)\), "\[IndentingNewLine]", 
+    \(\(Format[v[k_]] = Subscript[v, k];\)\), "\[IndentingNewLine]", 
+    \(\(Format[w[k_]] = Subscript[w, k];\)\), "\[IndentingNewLine]", 
+    \(\(Format[g[k_]] = Subscript[g, k];\)\), "\[IndentingNewLine]", 
+    \(XV = 
+      Flatten[Table[{x[i], v[i], y[i], w[i]}, {i, 2, 
+            nc}]]\), "\[IndentingNewLine]", 
+    \(\(XT = 
+        Flatten[Table[{\(x[i]\)[t], \(v[i]\)[t], \(y[i]\)[t], \(w[i]\)[
+                t]}, {i, 2, nc}]];\)\), "\[IndentingNewLine]", 
+    \(\(SXV = 
+        Flatten[Join[Table[{x[i], v[i], y[i], w[i]}, {i, 3, nc}], 
+            List[\(-\(\[Sum]\+\(i = 2\)\%nc x[
+                    i]\)\), \(-\(\[Sum]\+\(i = 2\)\%nc v[
+                    i]\)\), \(-\(\[Sum]\+\(i = 2\)\%nc y[
+                    i]\)\), \(-\(\[Sum]\+\(i = 2\)\%nc w[
+                    i]\)\)]]];\)\), "\[IndentingNewLine]", 
+    \(\(SXT[t_] = 
+        Flatten[Join[
+            Table[{\(x[i]\)[t], \(v[i]\)[t], \(y[i]\)[t], \(w[i]\)[t]}, {i, 
+                3, nc}], 
+            List[\(-\(\[Sum]\+\(i = 2\)\%nc\( x[i]\)[
+                    t]\)\), \(-\(\[Sum]\+\(i = 2\)\%nc\( v[i]\)[
+                    t]\)\), \(-\(\[Sum]\+\(i = 2\)\%nc\( y[i]\)[
+                    t]\)\), \(-\(\[Sum]\+\(i = 2\)\%nc\( w[i]\)[
+                    t]\)\)]]];\)\), "\[IndentingNewLine]", 
+    \(\(TX[t_] = 
+        Flatten[Table[{\(x[i]\)[t], \(v[i]\)[t], \(y[i]\)[t], \(w[i]\)[
+                t]}, {i, 2, nc}]];\)\), "\[IndentingNewLine]", 
+    \(\(SH = 
+        Table[\[PartialD]\_\(XV[\([j]\)]\)\ SXV[\([i]\)], {i, 1, 
+            4\ nc - 4}, {j, 1, 4\ nc - 4}];\)\), "\[IndentingNewLine]", 
+    \(MatrixForm[SH]\), "\[IndentingNewLine]", 
+    \(\(JV = 
+        Flatten[Table[
+            g[i, j], {i, 1, 4\ nc - 4}, {j, 1, 
+              4\ nc - 4}]];\)\), "\[IndentingNewLine]", 
+    \(\(JT = 
+        Flatten[Table[\(g[i, j]\)[t], {i, 1, 4\ nc - 4}, {j, 1, 
+              4\ nc - 4}]];\)\), "\[IndentingNewLine]", 
+    \(\(\(FV[1]\)[t_] = \(v[2]\)[t];\)\), "\[IndentingNewLine]", 
+    \(\(\(FV[2]\)[
+          t_] = \(-\(\(\[Sum]\+\(i = 2\)\%nc\( x[i]\)[t] + \(x[2]\)[
+                    t]\)\/\((\@\(\(\((\[Sum]\+\(i = 2\)\%nc\( x[i]\)[t] + \
+\(x[2]\)[t])\)\^2\)\(+\)\(\((\[Sum]\+\(i = 2\)\%nc\( y[i]\)[t] + \(y[2]\)[t])\
+\)\^2\)\(\ \)\))\)\^3\)\) + \[Sum]\+\(i = 3\)\%nc\(\( x[i]\)[t] - \(x[2]\)[t]\
+\)\/\((\@\(\((\(x[i]\)[t] - \(x[2]\)[t])\)\^2 + \((\(y[i]\)[t] - \(y[2]\)[t])\
+\)\^2\))\)\^3;\)\), "\[IndentingNewLine]", 
+    \(\(\(FV[3]\)[t_] = \(w[2]\)[t];\)\), "\[IndentingNewLine]", 
+    \(\(\(FV[4]\)[
+          t_] = \(-\(\(\[Sum]\+\(i = 2\)\%nc\( y[i]\)[t] + \(y[2]\)[
+                    t]\)\/\((\@\(\(\((\[Sum]\+\(i = 2\)\%nc\( x[i]\)[t] + \
+\(x[2]\)[t])\)\^2\)\(+\)\(\((\[Sum]\+\(i = 2\)\%nc\( y[i]\)[t] + \(y[2]\)[t])\
+\)\^2\)\(\ \)\))\)\^3\)\) + \[Sum]\+\(i = 3\)\%nc\(\( y[i]\)[t] - \(y[2]\)[t]\
+\)\/\((\@\(\((\(x[i]\)[t] - \(x[2]\)[t])\)\^2 + \((\(y[i]\)[t] - \(y[2]\)[t])\
+\)\^2\))\)\^3;\)\), "\[IndentingNewLine]", 
+    \(\(k = 3;\)\), "\[IndentingNewLine]", 
+    \(\(For[i = 5, i \[LessEqual] \ 4\ nc, 
+        i = i + 4, \(FV[i]\)[t_] = \(v[k]\)[
+            t]; \[IndentingNewLine]\(FV[i + 1]\)[
+            t_] = \(-\(\(\[Sum]\+\(j = 2\)\%nc\( x[j]\)[t] + \(x[k]\)[
+                      t]\)\/\((\@\(\((\[Sum]\+\(j = 2\)\%nc\( x[j]\)[t] + \
+\(x[k]\)[t])\)\^2 + \((\[Sum]\+\(j = 2\)\%nc\( y[j]\)[t] + \
+\(y[k]\)[t])\)\^2\))\)\^3\)\) + \[Sum]\+\(j = 2\)\%\(k - 1\)\(\(x[j]\)[t] - \
+\(x[k]\)[t]\)\/\((\@\(\((\(x[j]\)[t] - \(x[k]\)[t])\)\^2 + \((\(y[j]\)[t] - \
+\(y[k]\)[t])\)\^2\))\)\^3 + \[Sum]\+\(j = k + 1\)\%nc\(\( x[j]\)[t] - \
+\(x[k]\)[t]\)\/\((\@\(\((\(x[j]\)[t] - \(x[k]\)[t])\)\^2 + \((\(y[j]\)[t] - \
+\(y[k]\)[t])\)\^2\))\)\^3; \[IndentingNewLine]\(FV[i + 2]\)[t_] = \(w[k]\)[
+            t]; \[IndentingNewLine]\(FV[i + 3]\)[
+            t_] = \(-\(\(\[Sum]\+\(j = 2\)\%nc\( y[j]\)[t] + \(y[k]\)[
+                      t]\)\/\((\@\(\((\[Sum]\+\(j = 2\)\%nc\( x[j]\)[t] + \
+\(x[k]\)[t])\)\^2 + \((\[Sum]\+\(j = 2\)\%nc\( y[j]\)[t] + \
+\(y[k]\)[t])\)\^2\))\)\^3\)\) + \[Sum]\+\(j = 2\)\%\(k - 1\)\(\(y[j]\)[t] - \
+\(y[k]\)[t]\)\/\((\@\(\((\(x[j]\)[t] - \(x[k]\)[t])\)\^2 + \((\(y[j]\)[t] - \
+\(y[k]\)[t])\)\^2\))\)\^3 + \[Sum]\+\(j = k + 1\)\%nc\(\( y[j]\)[t] - \
+\(y[k]\)[t]\)\/\((\@\(\((\(x[j]\)[t] - \(x[k]\)[t])\)\^2 + \((\(y[j]\)[t] - \
+\(y[k]\)[t])\)\^2\))\)\^3; k = k + 1];\)\), "\[IndentingNewLine]", 
+    \(\(Table[
+        DF[i, j] = \[PartialD]\_\(XT[\([j]\)]\)\ \(FV[i]\)[t], {i, 1, 
+          4\ nc - 4}, {j, 1, 4\ nc - 4}];\)\), "\[IndentingNewLine]", 
+    \(MatrixForm[
+      Table[DF[i, j], {i, 1, 4\ nc - 4}, {j, 1, 
+          4\ nc - 4}]]\), "\[IndentingNewLine]", 
+    \(\(inijac = 
+        Flatten[Table[\(g[i, j]\)[0] \[Equal] 
+              SetPrecision[KroneckerDelta[i, j], 30], {i, 1, 4\ nc - 4}, {j, 
+              1, 4\ nc - 4}]];\)\), "\[IndentingNewLine]", 
+    \(\(var = Join[XV, JV];\)\), "\[IndentingNewLine]", 
+    \(\(WW = 
+        Flatten[Table[{\(\(zp[k]\)[0]\)[\([1]\)], \(\(dzp[k]\)[
+                  0]\)[\([1]\)], \(\(zp[k]\)[0]\)[\([2]\)], \(\(dzp[k]\)[
+                  0]\)[\([2]\)]}, {k, 2, nc}]];\)\), "\[IndentingNewLine]", 
+    \(\(XO = 
+        Flatten[Table[{\(x[i]\)[0], \(v[i]\)[0], \(y[i]\)[0], \(w[i]\)[
+                0]}, {i, 2, nc}]];\)\), "\[IndentingNewLine]", 
+    \(\(s1 = 
+        Flatten[Table[
+            D[XT[\([i]\)], {t, 1}] \[Equal] \(FV[i]\)[t], {i, 1, 
+              4\ nc - 4}]];\)\), "\[IndentingNewLine]", 
+    \(\(s2 = 
+        Flatten[Table[
+            D[\(g[i, j]\)[t], {t, 
+                  1}] \[Equal] \[Sum]\+\(k = 1\)\%\(4\ nc - 4\)DF[i, 
+                    k]\ \(g[k, j]\)[t], {i, 1, 4\ nc - 4}, {j, 1, 
+              4\ nc - 4}]];\)\), "\[IndentingNewLine]", 
+    \(For[m = 1, m \[LessEqual] \ 400, m = m + 1, 
+      ClearAll[sol, t]; \[IndentingNewLine]Clear[x, y, v, w, system, 
+        inicond]; \[IndentingNewLine]inicond = 
+        Flatten[Table[
+            XO[\([k]\)] \[Equal] SetPrecision[WW[\([k]\)], 30], {k, 1, 
+              4\ nc - 4}]]; 
+      Print[MatrixForm[inicond]]; \[IndentingNewLine]system = 
+        Join[s1, s2, inijac, inicond]; \[IndentingNewLine]sol = 
+        NDSolve[system, var, {t, 0, b}, MaxSteps \[Rule] \ 400000, 
+          AccuracyGoal \[Rule] \ 25, PrecisionGoal \[Rule] \ 25, 
+          WorkingPrecision \[Rule] \ 30]; \[IndentingNewLine]TX[t_] = 
+        Flatten[Table[{\(x[i]\)[t] /. Flatten[sol], \(v[i]\)[t] /. 
+                Flatten[sol], \(y[i]\)[t] /. Flatten[sol], \(w[i]\)[t] /. 
+                Flatten[sol]}, {i, 2, nc}]]; \[IndentingNewLine]ClearAll[
+        t]; \[IndentingNewLine] (*Plot[{{\(g[1, 1]\)[\[Tau]] /. 
+                Flatten[sol]}, {\(g[2, 2]\)[\[Tau]] /. 
+                Flatten[sol]}}, {\[Tau], 0, b}, 
+          AspectRatio \[Rule] \ Automatic, PlotDivision \[Rule] \ 100000]*) ; 
+      lspt = Join[{{AbsolutePointSize[10], 
+              Point[{\(-\(x[2]\)[0]\) - \(x[3]\)[
+                        0], \(-\(y[2]\)[0]\) - \(y[3]\)[0]} /. 
+                  Flatten[sol]]}}, 
+          Table[{AbsolutePointSize[10], 
+              Point[{\(x[i]\)[0], \(y[i]\)[0]} /. Flatten[sol]]}, {i, 2, 
+              nc}]]; \[IndentingNewLine]pp = 
+        ParametricPlot[{Evaluate[{\(-\(x[2]\)[t]\) - \(x[3]\)[
+                      t], \(-\(y[2]\)[t]\) - \(y[3]\)[t]} /. Flatten[sol]], 
+            Evaluate[{\(x[2]\)[t], \(y[2]\)[t]} /. Flatten[sol]], 
+            Evaluate[{\(x[3]\)[t], \(y[3]\)[t]} /. Flatten[sol]]}, {t, 0, b}, 
+          AspectRatio \[Rule] \ Automatic, PlotPoints \[Rule] 30000, 
+          DisplayFunction \[Rule] Identity]; 
+      Show[pp, pt, Graphics[lspt, AspectRatio \[Rule] \ Automatic], 
+        DisplayFunction \[Rule] \ $DisplayFunction]; 
+      ClearAll[i, j]; \[IndentingNewLine]GG = 
+        Table[SetPrecision[\(g[i, j]\)[b] /. Flatten[sol], 30], {i, 1, 
+            4\ nc - 4}, {j, 1, 4\ nc - 4}]; \[IndentingNewLine]GH = GG - SH; 
+      Print["\<D\[EAcute]terminant \>", Det[GH]]; 
+      Print["\<Rang \>", MatrixRank[GH], "\< \>", 
+        MatrixRank[GH, Tolerance \[Rule] \ 0]]; \[IndentingNewLine]ST = 
+        Dot[SH, TX[0]]; 
+      Print["\<Matching conditions  \>", 
+        MatrixForm[TX[b] - ST]]; \[IndentingNewLine]DW = 
+        Dot[Inverse[GH], \((TX[b] - ST)\)]; \[IndentingNewLine]WW = 
+        TX[0] - DW; Print[MatrixForm[WW]]]\), "\[IndentingNewLine]", 
+    \(\)}], "Input"],
+
+Cell[BoxData[
+    \(1\)], "Output"],
+
+Cell[BoxData[
+    InterpretationBox[\(0\[InvisibleSpace]" "\[InvisibleSpace]0\),
+      SequenceForm[ 0, " ", 0],
+      Editable->False]], "Print"],
+
+Cell[BoxData[
+    InterpretationBox[\(0\[InvisibleSpace]" "\[InvisibleSpace]0\),
+      SequenceForm[ 0, " ", 0],
+      Editable->False]], "Print"]
+}, Open  ]],
+
+Cell[BoxData[
+    \(\[IndentingNewLine]\)], "Input"],
+
+Cell[BoxData[
+    \(\[IndentingNewLine]\)], "Input"],
+
+Cell[BoxData[""], "Input"]
+},
+FrontEndVersion->"5.0 for Microsoft Windows",
+ScreenRectangle->{{0, 1152}, {0, 765}},
+WindowSize->{1144, 718},
+WindowMargins->{{-8, Automatic}, {Automatic, -2}},
+Magnification->1.25
+]
+
+(*******************************************************************
+Cached data follows.  If you edit this Notebook file directly, not
+using Mathematica, you must remove the line containing CacheID at
+the top of  the file.  The cache data will then be recreated when
+you save this file from within Mathematica.
+*******************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[1776, 53, 17290, 319, 3958, "Input"],
+Cell[19069, 374, 35, 1, 35, "Output"],
+Cell[19107, 377, 146, 3, 30, "Print"],
+Cell[19256, 382, 146, 3, 30, "Print"]
+}, Open  ]],
+Cell[19417, 388, 52, 1, 56, "Input"],
+Cell[19472, 391, 52, 1, 56, "Input"],
+Cell[19527, 394, 26, 0, 35, "Input"]
+}
+]
+*)
+
+
+
+(*******************************************************************
+End of Mathematica Notebook file.
+*******************************************************************)
+
